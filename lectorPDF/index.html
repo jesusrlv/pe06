@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Text</title>
+</head>
+<body>
+    <input type="file" id="fileInput" />
+    <pre id="output"></pre>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', async function(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const textContentArray = [];
+
+                for (let i = 0; i < pdf.numPages; i++) {
+                    const page = await pdf.getPage(i + 1);
+                    const textContent = await page.getTextContent();
+                    const strings = textContent.items.map(item => item.str);
+                    textContentArray.push(strings.join(' '));
+                }
+
+                document.getElementById('output').textContent = textContentArray.join('\n\n');
+            }
+        });
+    </script>
+</body>
+</html>
