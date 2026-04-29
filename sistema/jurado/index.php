@@ -22,10 +22,10 @@ if(empty($id)){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="INJUVENTUD" content="PEJ2025">
+    <meta name="INJUVENTUD" content="PEJ2026">
     <meta name="" content="">
     <link rel="icon" type="image/png" href="../../img/icon.ico" sizes="22x21">
-    <title>Perfil Jurado | PEJ2025</title>
+    <title>Perfil Jurado | PEJ2026</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -52,10 +52,10 @@ if(empty($id)){
         font-family: 'Montserrat', sans-serif;
       }
       #colorRounded{
-        background-color: rgba(61, 42, 93, 0.9);
+        background-color: rgba(122, 205, 228, 0.929);
       }
       #imgPortrait{
-        background-image: url('../../img/fondo_pej2025.png');
+        background-image: url('../../img/fondo_pej2026.jpg');
 
         object-fit: cover;
         background-position: auto 100%; /* Center the image */
@@ -150,7 +150,7 @@ if(empty($id)){
        
         }
         #colorRounded{
-          background-color: rgba(61, 42, 93, 0.9);
+          background-color: rgba(122, 205, 228, 0.929);
           border-radius:0px;
         }
         #textPortada{
@@ -169,7 +169,7 @@ if(empty($id)){
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <img src="../../img/logo_injuventud_0.png" width="20" alt="" class="me-1">
-        <strong>JURADO | PEJ 2025</strong>
+        <strong>JURADO | PEJ 2026</strong>
       </a>
       <a href="prcd/sort.php" type="button" class="btn btn-sm btn-outline-light"><i class="bi bi-door-open"></i> Salir</a>
     </div>
@@ -188,7 +188,7 @@ if(empty($id)){
         <?php echo '<input type="text" value="'.$categoria.'" id="catCompleto" hidden>'?>
         <h5 class="fw-bold" style="color:white">Mesa: <output id="categoriaOut"></h5>
         <p id="resultSpan"></p>
-        <p class="lead text-light mt-2">Sistema de calificación del INJUVENTUD del PEJ2025.</p>
+        <p class="lead text-light mt-2">Sistema de calificación del INJUVENTUD del PEJ2026.</p>
         <p>
           <hr class="text-secondary">
           <a href="#seccion_convocatoria" class="btn btn-primary my-2"><i class="bi bi-clipboard-data-fill"></i> Dashboard</a>
@@ -264,7 +264,7 @@ if(empty($id)){
   
   </main>
   
-  <footer class="text-light py-5" style="background:rgb(61, 42, 93)">
+  <footer class="text-light py-5" style="background-color: rgba(122, 205, 228, 0.929);">
     <div class="container">
       <div>
         <div class="row">

@@ -8,21 +8,15 @@ echo '<div class="accordion w-100" id="accordionCategorias">';
 
 $i = 0;
 
-while($rowCategoria=$resultadoCategorias->fetch_assoc()){
+while($rowCategoria = $resultadoCategorias->fetch_assoc()){
     $categoria = $rowCategoria['id'];
-
-    // 🔹 Contador participantes con 11 documentos
-    $sqlCount = "
-        SELECT u.id
-        FROM usr u
-        INNER JOIN documentos d ON d.id_ext = u.id
-        WHERE u.categoria = '$categoria' 
-        AND u.perfil = 1
-        GROUP BY u.id
-        HAVING COUNT(d.id_ext) = 11
-    ";
+    $categoriaNombre = $rowCategoria['nombre'];
+    
+    // 🔹 CONTADOR: Total de usuarios en esta categoría (sin filtrar por documentos)
+    $sqlCount = "SELECT COUNT(*) as total FROM usr WHERE categoria = '$categoria' AND perfil = 1";
     $resultCount = $conn->query($sqlCount);
-    $total = $resultCount ? $resultCount->num_rows : 0;
+    $rowCount = $resultCount->fetch_assoc();
+    $total = $rowCount['total'];
 
     $i++;
 
@@ -33,13 +27,11 @@ while($rowCategoria=$resultadoCategorias->fetch_assoc()){
                 type="button" 
                 data-bs-toggle="collapse" 
                 data-bs-target="#collapse'.$i.'">
-
                 <div>
                     <i class="bi bi-flag-fill text-dark me-2"></i>
-                    '.$rowCategoria['nombre'].'
+                    '.$categoriaNombre.'
                 </div>
-
-                <span class="badge bg-primary ms-2">'.$total.'</span>
+                <span class="badge bg-primary rounded-pill ms-2">'.$total.'</span>
             </button>
         </h2>
 
@@ -49,7 +41,7 @@ while($rowCategoria=$resultadoCategorias->fetch_assoc()){
                 <!-- 🔍 BUSCADOR -->
                 <div class="input-group mb-3 p-3">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Buscar ..." id="myInput'.$i.'">
+                    <input type="text" class="form-control buscar-categoria" placeholder="Buscar ..." data-tabla="myTable'.$i.'">
                 </div>
 
                 <!-- 📊 TABLA -->
@@ -69,52 +61,61 @@ while($rowCategoria=$resultadoCategorias->fetch_assoc()){
                     <tbody class="text-center" id="myTable'.$i.'">
     ';
 
-    // 🔹 Usuarios (solo con 11 docs)
+    // 🔹 Usuarios (TODOS, sin filtrar por documentos)
     $sqlUsr = "SELECT * FROM usr WHERE categoria = '$categoria' AND perfil = 1 ORDER BY id ASC";
     $resultadoUsr = $conn->query($sqlUsr);
-    $x=0;
+    $x = 0;
 
-    while($rowUsr=$resultadoUsr->fetch_assoc()){
+    while($rowUsr = $resultadoUsr->fetch_assoc()){
+        $x++;
         $idD = $rowUsr['id'];
-
-        $sqlDoc = "SELECT * FROM documentos WHERE id_ext='$idD'";
+        
+        // Contar documentos del usuario
+        $sqlDoc = "SELECT COUNT(*) as total FROM documentos WHERE id_ext='$idD'";
         $resultadoDoc = $conn->query($sqlDoc);
-        $noDocs=$resultadoDoc->num_rows;
+        $rowDoc = $resultadoDoc->fetch_assoc();
+        $noDocs = $rowDoc['total'];
 
-        if($noDocs == 11){
-            $x++;
+        echo '
+        <tr>
+            <td>'.$x.'</td>
+            <td class="text-start">'.strtoupper($rowUsr['nombre']).'</td>
+            <td>'.$rowUsr['curp'].'</td>
+            <td>'.$rowUsr['edad'].'</td>
+        ';
 
-            echo '
-            <tr>
-                <td>'.$x.'</td>
-                <td>'.strtoupper($rowUsr['nombre']).'</td>
-                <td>'.$rowUsr['curp'].'</td>
-                <td>'.$rowUsr['edad'].'</td>
-            ';
+        // Municipio
+        $idMun = $rowUsr['municipio'];
+        $sqlMun = "SELECT * FROM municipio WHERE id = '$idMun'";
+        $resultadoMun = $conn->query($sqlMun);
+        $rowMun = $resultadoMun->fetch_assoc();
+        $nombreMunicipio = $rowMun ? $rowMun['municipio'] : 'No especificado';
 
-            $idMun = $rowUsr['municipio'];
-            $sqlMun = "SELECT * FROM municipio WHERE id = '$idMun'";
-            $resultadoMun = $conn->query($sqlMun);
-            $rowMun = $resultadoMun->fetch_assoc();
-
-            echo '
-                <td>'.$rowMun['municipio'].'</td>
-                <td>'.$rowUsr['telefono'].'</td>
-                <td>'.$rowUsr['usr'].'</td>
-                <td>
-                    <a href="listado_docs.php?id='.$idD.'">
-                        <span class="badge bg-primary">'.$noDocs.'</span>
-                    </a>
-                </td>
-            </tr>
-            ';
+        echo '
+            <td>'.$nombreMunicipio.'</td>
+            <td>'.$rowUsr['telefono'].'</td>
+            <td>'.$rowUsr['usr'].'</td>
+            <td class="text-center">
+                <a href="listado_docs.php?id='.$idD.'">
+                ';
+        if ($noDocs == 0) {
+            echo '<span class="badge bg-danger">'.$noDocs.'</span>';
+        } else if ($noDocs < 11 && $noDocs > 0) {
+            echo '<span class="badge bg-warning">'.$noDocs.'</span>';
         }
+        else {
+            echo '<span class="badge bg-primary">'.$noDocs.'</span>';
+        }
+        echo '
+                </a>
+            </td>
+        </tr>
+        ';
     }
 
     echo '
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>

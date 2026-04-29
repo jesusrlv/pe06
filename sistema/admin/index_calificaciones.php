@@ -207,10 +207,7 @@ $perfil = $_SESSION['perfil'];
       </div>
       
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Buscar ..." aria-describedby="basic-addon1" id="myInput">
-      </div>
+      
             <?php
             include('query/lista_postulantes_calificaciones2.php');
             ?>

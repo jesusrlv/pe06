@@ -224,7 +224,7 @@ function contador(){
       imageUrl: '../../img/logo_pej2025_01.png',
       imageHeight: 200,
       title: 'Tienes documentos pendientes por cargar',
-      html: 'Has cargado <b>'+cont+'</b> documento(s) para postularte al PEJ2025.',
+      html: 'Has cargado <b>'+cont+'</b> de 11 documentos para postularte al PEJ2026.',
       confirmButtonColor: '#3085d6',
       footer: 'INJUVENTUD'
 

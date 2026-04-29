@@ -16,7 +16,7 @@ function Header()
     // Logo
     // $pdf->MultiCell(0,9, $pdf->Image("../img/logos_pej2022.png", $pdf->GetX()+5, $pdf->GetY()+3, 180) ,0,"C");
 
-    $this->Image('../../img/logos_pej2025_01.png',5,0,200);
+    $this->Image('../../img/logo_pej2025_01.png',80,7,50);
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Movernos a la derecha
@@ -54,7 +54,7 @@ $pdf->Ln();
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(0,12,utf8_decode('Estimado(a) participante, '.$nombre.' '),0,1);
 $pdf->SetFont('Arial','',10);
-$pdf->Multicell(190,9,utf8_decode('Por medio de la presente, el Instituto de la Juventud del Estado de Zacatecas, a través de su Director General, el Ing. Mauricio Acevedo Rodríguez, reconoce a usted su participación como candidato(a) a recibir el Premio Estatal de la Juventud en su edición 2025.
+$pdf->Multicell(190,9,utf8_decode('Por medio de la presente, el Instituto de la Juventud del Estado de Zacatecas, a través de su Director General, el Ing. Mauricio Acevedo Rodríguez, reconoce a usted su participación como candidato(a) a recibir el Premio Estatal de la Juventud en su edición 2026.
 
 Su postulación es fundamental para la construcción de un Estado más próspero, incluyente, democrático e igualitario. Gracias a su intervención, recordamos lo importante que es reconocer el talento y la trayectoria de las y los jóvenes en nuestra entidad. Los principios rectores de la Nueva Gobernanza, nos obligan a impulsar y generar los espacios oportunos para que las juventudes puedan alcanzar sus objetivos, desarrollarse de manera integral y vivir en bienestar. No sólo representas uno de los cimientos más importantes de la sociedad, también eres protagonista del presente y agente estratégico para la transformación nacional.
 
@@ -62,7 +62,7 @@ Continúa abriendo brechas, rompiendo estigmas y creciendo, ¡Tu talento y capac
 
 '),0,'J',0);
 $pdf->SetFont('Arial','I',10);
-$pdf->Multicell(190,9,'En la ciudad de Zacatecas, Zac., julio de 2025.',0,'C',0);
+$pdf->Multicell(190,9,'En la ciudad de Zacatecas, Zac., agosto de 2026.',0,'C',0);
 $pdf->MultiCell(190,9, $pdf->Image("../../img/rubrica_pej2022.png", $pdf->GetX()+20, $pdf->GetY()+1, 150) ,0,"C",0);
 //IMAGE (RUTA,X,Y,ANCHO,ALTO,EXTEN)
 $pdf->Ln();
@@ -74,7 +74,7 @@ DEL ESTADO DE ZACATECAS',0,'C',0);
 
 // $pdf->Output();
 $modo="I";
-$nombre_archivo="constancia_PEJ2025_".$usuario.".pdf";
+$nombre_archivo="constancia_PEJ2026_".$usuario.".pdf";
 $pdf->Output($nombre_archivo,$modo);  
 
 ?>

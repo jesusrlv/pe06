@@ -26,7 +26,7 @@ else{
     <meta name="INJUVENTUD" content="Consejo Juvenil">
     <meta name="" content="">
     <link rel="icon" type="image/png" href="../../img/icon.ico" sizes="22x21">
-    <title>Perfil Usuario | PEJ2025</title>
+    <title>Perfil Usuario | PEJ2026</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -53,10 +53,10 @@ else{
         font-family: 'Montserrat', sans-serif;
       }
       #colorRounded{
-        background-color: rgba(61, 42, 93, 0.9);
+        background-color: rgba(122, 205, 228, 0.929);
       }
       #imgPortrait{
-        background-image: url('../../img/fondo_pej2025.png');
+        background-image: url('../../img/fondo_pej2026.jpg');
 
         object-fit: cover;
         background-position: 80% 100%; /* Center the image */
@@ -170,7 +170,7 @@ else{
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <img src="../../img/logo_injuventud_0.png" width="20" alt="" class="me-1">
-        <strong id="textPortada">POSTULANTE | PREMIO ESTATAL DE LA JUVENTUD 2025</strong>
+        <strong id="textPortada">POSTULANTE | PREMIO ESTATAL DE LA JUVENTUD 2026</strong>
       </a>
       <a href="prcd/sort.php" type="button" class="btn btn-sm btn-outline-light"><i class="bi bi-door-open"></i> Salir</a>
     </div>
@@ -192,7 +192,7 @@ else{
         <?php echo '<input type="text" value="'.$categoria.'" id="catCompleto" hidden>' ?>
         <h5 class="fw-bold" style="color:white">Categoría: <output id="categoriaOut"></h5>
         <p id="resultSpan"></p>
-        <p class="lead text-light mt-2">Sistema de postulación del INJUVENTUD para integrarse al Consejo Juvenil del Estado de Zacatecas en su edición 2025.</p>
+        <p class="lead text-light mt-2">Sistema de postulación del INJUVENTUD para del Premio Estatal de la Juventud del Zacatecas en su edición 2026.</p>
         <p>
           <hr class="text-secondary">
           <a href="#seccion_documentos" class="btn btn-primary my-2"><i class="bi bi-filetype-pdf"></i> Sección de documentos</a>
@@ -237,7 +237,7 @@ else{
             <div class="card-body">
               <h5 class="card-title">Convocatoria</h5>
               <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-exclamation-triangle-fill text-warning"></i> Convocatoria vigente</h6>
-              <p class="card-text">Convocatoria vigente acerca de la postulación al Premio Estatal de la Juventud 2025.</p>
+              <p class="card-text">Convocatoria vigente acerca de la postulación al Premio Estatal de la Juventud 2026.</p>
               <p><a href="generador_constancia.php" target="_blank" style="text-decoration:none" class="btn btn-primary" id="constanciaP" hidden> <i class="bi bi-file-earmark-richtext"></i> Constancia de participación al PEJ204</a></p>
               
             </div>
@@ -270,7 +270,7 @@ else{
 
 </main>
 
-<footer class="text-light py-5" style="background:rgb(61, 42, 93)">
+<footer class="text-light py-5" style="background:rgba(122, 205, 228, 0.929)">
   <div class="container">
     <div>
       <div class="row">
