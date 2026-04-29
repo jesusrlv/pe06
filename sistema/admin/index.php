@@ -35,7 +35,7 @@ $categoria = $_SESSION['categoria'];
     <meta name="INJUVENTUD" content="Consejo Juvenil">
     <meta name="" content="">
     <link rel="icon" type="image/png" href="../../img/icon.ico" sizes="22x21">
-    <title>Perfil Admin | PEJ2025</title>
+    <title>Perfil Admin | PEJ2026</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -55,6 +55,9 @@ $categoria = $_SESSION['categoria'];
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     
+     <!-- Chart.js para gráficos -->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -138,13 +141,93 @@ $categoria = $_SESSION['categoria'];
       } */
       .card{
         box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        transition: all 0.3s ease;
       }
       .card:hover{
         transform: scale(1.05);
         box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-        transition: width 0.8s, height 0.8s, transform 0.3s;
       }
      
+      /* ESTILOS NUEVOS PARA DASHBOARD */
+      .stats-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      }
+      .stats-card .card-icon {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 3rem;
+        opacity: 0.15;
+      }
+      .stats-card .card-value {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0;
+      }
+      .stats-card .card-label {
+        font-size: 0.8rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .bg-soft-primary { background: linear-gradient(135deg, #fff 0%, #e0f2fe 100%); }
+      .bg-soft-success { background: linear-gradient(135deg, #fff 0%, #d1fae5 100%); }
+      .bg-soft-danger { background: linear-gradient(135deg, #fff 0%, #fee2e2 100%); }
+      .bg-soft-warning { background: linear-gradient(135deg, #fff 0%, #fed7aa 100%); }
+      
+      .table-dashboard {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .table-dashboard thead th {
+        background: #e0f2fe;
+        border: none;
+        padding: 1rem;
+      }
+      .table-dashboard tbody td {
+        padding: 0.8rem 1rem;
+        vertical-align: middle;
+      }
+      .badge-completado {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 0.3rem 1rem;
+        border-radius: 40px;
+      }
+      .badge-no-completado {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 0.3rem 1rem;
+        border-radius: 40px;
+      }
+      .menu-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08);
+      }
+      .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      }
+      .menu-card i {
+        font-size: 2.5rem;
+      }
+
       /* CELULAR */
       @media screen and (max-width: 600px) {
         .card:active{
@@ -152,13 +235,10 @@ $categoria = $_SESSION['categoria'];
           transition: width 0.3s, height 0.3s, transform 0.3s;
         }
         #imgPortrait{
-
-        object-fit: cover;
-        background-repeat: no-repeat;
-        background-size: 350% 18%; /* Resize the background image to cover the entire container */
-        background-position: 0 0;
-        
-       
+          object-fit: cover;
+          background-repeat: no-repeat;
+          background-size: 350% 18%;
+          background-position: 0 0;
         }
         #colorRounded{
           background-color: rgba(122, 205, 228, 0.929);
@@ -166,6 +246,9 @@ $categoria = $_SESSION['categoria'];
         }
         #textPortada{
           font-size:8px;
+        }
+        .stats-card .card-value {
+          font-size: 1.5rem;
         }
       }
     </style>
@@ -188,9 +271,8 @@ $categoria = $_SESSION['categoria'];
 </header>
 
 <main id="imgPortrait">
-
-<section class="text-center container">
-    <!-- <div class="row py-lg-5"  style="background-image: url('../../img/logo_consejo_05.png')"> -->
+<!-- hidden -->
+<section class="text-center container" hidden>
     <div class="row py-lg-5" >
       <div class="col-lg-6 col-md-8 mx-auto rounded p-2" id="colorRounded">
       <h1 class="fw-light"><img src="../../img/logo_pej2025_01.png" alt="" width="100%" style="padding:10px; border-radius: 15px;"></h1>
@@ -198,73 +280,152 @@ $categoria = $_SESSION['categoria'];
         <h2 class="fw-bold" style="color:white"><i class="bi bi-person-circle"></i></h2>
         <h2 class="fw-bold" style="color:white"><?php echo $nombre ?></h2>
         <p id="resultSpan"></p>
-        <p class="lead text-light mt-2">Sistema de postulación del INJUVENTUD para integrarse al PEJ2025.</p>
+        <p class="lead text-light mt-2">Sistema de postulación del INJUVENTUD para integrarse al PEJ2026.</p>
         <p>
           <hr class="text-secondary">
-          <a href="#seccion_convocatoria" class="btn btn-primary my-2"><i class="bi bi-clipboard-data-fill"></i> Dashboard</a>
+          <a href="#dashboard" class="btn btn-primary my-2"><i class="bi bi-clipboard-data-fill"></i> Dashboard</a>
         </p>
       </div>
     </div>
   </section>
-  
-<div class="album py-5 bg-light">
+  <!-- hidden -->
+
+<!-- ========== NUEVO DASHBOARD - SOLO FRONT END ========== -->
+<div id="dashboard" class="album py-5 bg-light">
   <div class="container">
-    <div class="alert alert-light" role="alert">
-    <p class="text-center fs-1 text-secondary"><i class="bi bi-menu-up"></i><br> Menú</p>
+    
+    <!-- Título Dashboard -->
+    <div class="alert alert-light text-center mb-4" role="alert">
+      <p class="fs-1 mb-0"><i class="bi bi-speedometer2"></i><br> Dashboard de Estadísticas</p>
+      <p class="text-muted small">Visualización general de participantes</p>
     </div>
-    <div class="row p-5 mt-3 mb-3  my-auto">
 
-      <div class="col-md-6 mt-3">
-        <a href="index_completados.php" style="text-decoration: none">
-        <div class="card bg-success text-light mx-auto" style="width: 18rem;">
-        <i class="bi bi-list-check h1 text-center mt-3"></i>
-          <div class="card-body">
-            <p class="card-text text-center fs-1">1</p>
-            <p class="card-text text-center">Listado completados.</p>
+    <!-- CARDS ESTADÍSTICAS -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-3">
+        <div class="stats-card bg-soft-primary">
+          <i class="bi bi-people-fill card-icon"></i>
+          <p class="card-value text-primary" id="totalParticipantes">0</p>
+          <p class="card-label">Total de participantes</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stats-card bg-soft-success">
+          <i class="bi bi-check-circle-fill card-icon"></i>
+          <p class="card-value text-success" id="expedientesCompletados">0</p>
+          <p class="card-label">Expedientes completados</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stats-card bg-soft-danger">
+          <i class="bi bi-x-circle-fill card-icon"></i>
+          <p class="card-value text-danger" id="expedientesNoCompletados">0</p>
+          <p class="card-label">Expedientes no completados</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stats-card bg-soft-warning">
+          <i class="bi bi-building card-icon"></i>
+          <p class="card-value text-warning" id="totalMunicipios">0</p>
+          <p class="card-label">Municipios participantes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-4">
+        <div class="card p-3 border-0 shadow-sm">
+          <h6 class="fw-bold mb-3"><i class="bi bi-gender-ambiguous"></i> Participantes por sexo</h6>
+          <canvas id="sexoChart" style="max-height: 250px;"></canvas>
+          <div class="row mt-3 text-center">
+            <div class="col-6"><span class="badge bg-info px-3 py-2" id="totalHombres">Hombres: 0</span></div>
+            <div class="col-6"><span class="badge bg-danger px-3 py-2" id="totalMujeres">Mujeres: 0</span></div>
           </div>
         </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card p-3 border-0 shadow-sm">
+          <h6 class="fw-bold mb-3"><i class="bi bi-tags"></i> Participantes por categoría</h6>
+          <canvas id="categoriaChart" style="max-height: 250px;"></canvas>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card p-3 border-0 shadow-sm">
+          <h6 class="fw-bold mb-3"><i class="bi bi-clipboard-data"></i> Estado de expedientes</h6>
+          <canvas id="expedienteChart" style="max-height: 250px;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA DE MUNICIPIOS -->
+    <div class="card border-0 shadow-sm mb-5">
+      <div class="card-header bg-white border-0 pt-3">
+        <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt-fill"></i> Participantes por municipio</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-dashboard" id="tablaMunicipios">
+            <thead>
+              <tr><th>#</th><th>Municipio</th><th>Participantes</th></tr>
+            </thead>
+            <tbody id="municipiosBody">
+              <tr><td colspan="3" class="text-center">Cargando datos...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRÁFICO DE EDADES -->
+    <div class="card border-0 shadow-sm mb-5">
+      <div class="card-header bg-white border-0 pt-3">
+        <h6 class="fw-bold mb-0"><i class="bi bi-calendar-heart"></i> Rango de edades de participantes</h6>
+      </div>
+      <div class="card-body">
+        <canvas id="edadChart" style="max-height: 300px;"></canvas>
+      </div>
+    </div>
+
+    <!-- MENÚ DE OPCIONES ORIGINAL (solo diseño mejorado) -->
+    <div class="alert alert-light text-center mt-4" role="alert">
+      <p class="fs-5 mb-0"><i class="bi bi-menu-up"></i><br> Módulos del Sistema</p>
+    </div>
+    
+    <div class="row g-4 pb-5">
+      <div class="col-md-6 col-lg-3">
+        <a href="index_completados.php" class="menu-card">
+          <i class="bi bi-list-check text-success"></i>
+          <h6 class="mt-2 fw-bold mb-0">Listado completados</h6>
+          <small class="text-muted">Expedientes finalizados</small>
         </a>
       </div>
-      <div class="col-md-6 mt-3">
-      <a href="index_no_completados.php" style="text-decoration: none">
-        <div class="card bg-danger text-light mx-auto" style="width: 18rem;">
-          <i class="bi bi-list-columns h1 text-center mt-3"></i>
-          <div class="card-body">
-            <p class="card-text text-center fs-1">2</p>
-            <p class="card-text text-center">Listado no completados.</p>
-          </div>
-        </div>
-      </a>
-      </div>
-      <div class="col-md-6 mt-3">
-        <a href="index_calificaciones.php" style="text-decoration: none" class="text-dark">
-        <div class="card bg-info mx-auto" style="width: 18rem;">
-        <i class="bi bi-list-ol h1 text-center mt-3"></i>
-          <div class="card-body">
-            <p class="card-text text-center fs-1">3</p>
-            <p class="card-text text-center">Calificaciones.</p>
-          </div>
-        </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="index_no_completados.php" class="menu-card">
+          <i class="bi bi-list-columns text-danger"></i>
+          <h6 class="mt-2 fw-bold mb-0">Listado no completados</h6>
+          <small class="text-muted">Expedientes pendientes</small>
         </a>
       </div>
-      <div class="col-md-6 mt-3">
-        <a href="index_general.php" style="text-decoration: none" class="text-dark">
-        <div class="card bg-warning mx-auto" style="width: 18rem;">
-        <i class="bi bi-card-list h1 text-center mt-3"></i>
-          <div class="card-body">
-            <p class="card-text text-center fs-1">4</p>
-            <p class="card-text text-center">Lista general.</p>
-          </div>
-        </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="index_calificaciones.php" class="menu-card">
+          <i class="bi bi-list-ol text-info"></i>
+          <h6 class="mt-2 fw-bold mb-0">Calificaciones</h6>
+          <small class="text-muted">Gestión de calificaciones</small>
         </a>
       </div>
-
-      
-
+      <div class="col-md-6 col-lg-3">
+        <a href="index_general.php" class="menu-card">
+          <i class="bi bi-card-list text-warning"></i>
+          <h6 class="mt-2 fw-bold mb-0">Lista general</h6>
+          <small class="text-muted">Reporte completo</small>
+        </a>
+      </div>
     </div>
 
   </div>
 </div>
+<!-- ========== FIN DASHBOARD ========== -->
 
 </main>
 
@@ -275,7 +436,6 @@ $categoria = $_SESSION['categoria'];
         <div class="col-sm-3 col-md-6 col-lg-4 mt-2">
           <p class="mb-0 text-center"><img src="../../img/logo_white_02.png"  width="180" alt=""></p>
           <p class="mb-0 mt-1 text-center"><small>&copy; Desarrollo:<br> <strong class="text-light">Tecnologías de la Información | INJUVENTUD</strong></small></p>
-          <!-- <p class="mb-0 text-center"><small><a href="/" style="text-decoration: none;" class="text-light">Gobierno del estado de Zacatecas</a>.</small></p> -->
         </div>
         <div class="col-sm-3 col-md-6 col-lg-4 mt-2 text-center">
           <img src="../../img/logo_pej2025_01.png" width="180" alt="">
@@ -290,38 +450,93 @@ $categoria = $_SESSION['categoria'];
   </div>
 </footer>
 
-    <!-- <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script> -->
-
-  </body>
-</html>
-
 <script>
-    $("a[href^='#']").click(function(e) {
-    e.preventDefault();
-    
-    var position = $($(this).attr("href")).offset().top;
+// DATOS DE EJEMPLO - REEMPLAZA CON TUS CONSULTAS AJAX O PHP
+// Como solo es front-end, uso datos de muestra. Conéctalo con tu backend mediante AJAX.
 
-    $("body, html").animate({
-        scrollTop: position
-    } /* speed */ );
+const datosEjemplo = {
+  totalParticipantes: 1247,
+  expedientesCompletados: 856,
+  expedientesNoCompletados: 391,
+  totalMunicipios: 58,
+  hombres: 680,
+  mujeres: 567,
+  categorias: ['Logro Académico', 'Emprendimiento', 'Arte y Cultura', 'Deporte', 'Innovación Social', 'Medio Ambiente'],
+  participantesCategoria: [245, 189, 234, 167, 198, 214],
+  municipios: [
+    {nombre: 'Zacatecas', participantes: 245},
+    {nombre: 'Guadalupe', participantes: 198},
+    {nombre: 'Fresnillo', participantes: 312},
+    {nombre: 'Jerez', participantes: 98},
+    {nombre: 'Calera', participantes: 67},
+    {nombre: 'Villanueva', participantes: 54},
+    {nombre: 'Loreto', participantes: 43},
+    {nombre: 'Otros', participantes: 230}
+  ],
+  edades: [85, 342, 421, 278, 98, 23]
+};
+
+// Cargar datos en las cards
+document.getElementById('totalParticipantes').innerText = datosEjemplo.totalParticipantes.toLocaleString();
+document.getElementById('expedientesCompletados').innerText = datosEjemplo.expedientesCompletados.toLocaleString();
+document.getElementById('expedientesNoCompletados').innerText = datosEjemplo.expedientesNoCompletados.toLocaleString();
+document.getElementById('totalMunicipios').innerText = datosEjemplo.totalMunicipios;
+document.getElementById('totalHombres').innerHTML = `Hombres: ${datosEjemplo.hombres}`;
+document.getElementById('totalMujeres').innerHTML = `Mujeres: ${datosEjemplo.mujeres}`;
+
+// Tabla de municipios
+let municipiosHtml = '';
+datosEjemplo.municipios.forEach((m, i) => {
+  municipiosHtml += `<tr><td>${i+1}</td><td class="fw-medium">${m.nombre}</td><td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">${m.participantes.toLocaleString()}</span></td></tr>`;
+});
+document.getElementById('municipiosBody').innerHTML = municipiosHtml;
+
+// Gráfico de sexo
+new Chart(document.getElementById('sexoChart'), {
+  type: 'doughnut',
+  data: { labels: ['Hombres', 'Mujeres'], datasets: [{ data: [datosEjemplo.hombres, datosEjemplo.mujeres], backgroundColor: ['#199bd8', '#dc2626'], borderWidth: 0 }] },
+  options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
+});
+
+// Gráfico de categorías
+new Chart(document.getElementById('categoriaChart'), {
+  type: 'bar',
+  data: { labels: datosEjemplo.categorias, datasets: [{ label: 'Participantes', data: datosEjemplo.participantesCategoria, backgroundColor: '#199bd8', borderRadius: 8 }] },
+  options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+});
+
+// Gráfico de expedientes
+new Chart(document.getElementById('expedienteChart'), {
+  type: 'pie',
+  data: { labels: ['Completados', 'No completados'], datasets: [{ data: [datosEjemplo.expedientesCompletados, datosEjemplo.expedientesNoCompletados], backgroundColor: ['#10b981', '#ef4444'], borderWidth: 0 }] },
+  options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
+});
+
+// Gráfico de edades
+new Chart(document.getElementById('edadChart'), {
+  type: 'line',
+  data: { labels: ['15-17', '18-20', '21-23', '24-26', '27-29', '30+'], datasets: [{ label: 'Participantes', data: datosEjemplo.edades, borderColor: '#199bd8', backgroundColor: 'rgba(25, 155, 216, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#199bd8', pointRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: true }
+});
+
+// Smooth scroll
+$("a[href^='#']").click(function(e) {
+  e.preventDefault();
+  var position = $($(this).attr("href")).offset().top;
+  $("body, html").animate({ scrollTop: position });
 });
 
 $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-$(document).ready(function () {
-        $("#myInput2").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable2 tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+  $("#myInput").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function () { $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1); });
+  });
+  $("#myInput2").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#myTable2 tr").filter(function () { $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1); });
+  });
+});
 </script>
 
-<!-- modal datos visualizar -->
+</body>
+</html>
