@@ -13,10 +13,10 @@ $perfil = $_SESSION['perfil'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="INJUVENTUD" content="PEJ24">
+    <meta name="INJUVENTUD" content="PEJ2026">
     <meta name="" content="">
     <link rel="icon" type="image/png" href="../../img/icon.ico" sizes="22x21">
-    <title>Perfil Admin | PEJ2025</title>
+    <title>Perfil Admin | PEJ2026</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -39,6 +39,19 @@ $perfil = $_SESSION['perfil'];
     <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+      .accordion-button {
+      background-color: var(--bs-info);
+      color: #fff;
+      }
+
+      .accordion-button:not(.collapsed) {
+          background-color: var(--bs-info);
+          color: #fff;
+      }
+
+      .accordion-button::after {
+          filter: brightness(0) invert(1); /* icono blanco */
+      }
       body{
         font-family: 'Montserrat', sans-serif;
       }
@@ -160,7 +173,7 @@ $perfil = $_SESSION['perfil'];
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <img src="../../img/logo_injuventud_0.png" width="20" alt="" class="me-1">
-        <strong class="text-light" id="texto_">ADMINISTRADOR | Consejo Juvenil 2025</strong>
+        <strong class="text-light" id="texto_">ADMINISTRADOR | Premio Estatal de la Juventud 2026</strong>
       </a>
       <a href="prcd/sort.php" type="button" class="btn btn-sm btn-outline-light"><i class="bi bi-door-open"></i> Salir</a>
     </div>
@@ -169,49 +182,33 @@ $perfil = $_SESSION['perfil'];
 
 <main id="imgPortrait">
 
-<section class="text-center container">
-    <!-- <div class="row py-lg-5"  style="background-image: url('../../img/logo_consejo_05.png')"> -->
-    <div class="row py-lg-5" >
-      <div class="col-lg-6 col-md-8 mx-auto rounded p-2" id="colorRounded">
-        <h1 class="fw-light"><img src="../../img/logo_pej2025_01.png" alt="" width="100%" style="padding:10px; border-radius: 15px;"></h1>
-        <h2 class="fw-bold" style="color:white">Bienvenid@</h2>
-        <h2 class="fw-bold" style="color:white"><i class="bi bi-person-circle"></i></h2>
-        <h2 class="fw-bold" style="color:white"><?php echo $nombre ?></h2>
-        <p id="resultSpan"></p>
-        <p class="lead text-light mt-2">Sistema de postulación del INJUVENTUD para integrarse al PEJ2025.</p>
-        <p>
-          <hr class="text-secondary">
-          <a href="#seccion_convocatoria" class="btn btn-primary my-2"><i class="bi bi-clipboard-data-fill"></i> Dashboard</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
   <div class="album py-5 bg-light">
     <div class="container">
     <nav class="navbar bg-body-tertiary">
       <form class="container-fluid justify-content-start">
-        <a href="completados.php" class="btn btn-outline-success me-2" type="button"><i class="bi bi-check-circle-fill"></i> Completados</a>
-        <a href="no_completados.php" class="btn btn-sm btn-outline-danger" type="button"><i class="bi bi-x-circle-fill"></i> No completados</a>
+        <a href="completados.php" class="btn btn-success me-2" type="button"><i class="bi bi-check-circle-fill"></i> Completados</a>
+        <a href="index_no_completados.php" class="btn btn-sm btn-outline-danger me-2" type="button"><i class="bi bi-x-circle-fill"></i> No completados</a>
+        <a href="index_general.php" class="btn btn-sm btn-outline-warning me-2" type="button"><i class="bi bi-cone-striped"></i> Listado general</a>
+        <a href="index_calificaciones.php" class="btn btn-sm btn-outline-info me-2" type="button"><i class="bi bi-list-ol"></i> Calificaciones</a>
+        <a href="index.php" class="btn btn-sm btn-outline-dark" type="button"><i class="bi bi-house-door-fill"></i> Dashboard</a>
       </form>
     </nav>
       <div class="mb-4">
         <p><span id="seccion_MX"></span>
           <p class="h2">
-          <i class="bi bi-flag-fill text-success"></i> Postulantes expediente completo | 
-              <a href="#inicio">
-                <i class="bi bi-arrow-bar-up"></i>
-              </a>
+            <div class="alert alert-primary h2 text-center" role="alert">
+              <i class="bi bi-flag-fill text-success"></i> Postulantes expediente completo 
+            </div>
           </p>
         </p>
-        <p><small>Postulantes nacidos en <strong>el estado de Zacatecas</strong>.</small></p>
+        
       </div>
       
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="input-group mb-3">
+      <!-- <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
         <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Buscar ..." aria-describedby="basic-addon1" id="myInput">
-      </div>
+      </div> -->
             <?php
             include('query/lista_postulantes_completados2.php');
             ?>
