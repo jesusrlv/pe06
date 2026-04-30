@@ -190,8 +190,7 @@ include('query/name.php');
     <div class="container">
     <nav class="navbar bg-body-tertiary">
       <form class="container-fluid justify-content-start">
-        <a href="completados.php" class="btn btn-outline-success me-2" type="button"><i class="bi bi-check-circle-fill"></i> Completados</a>
-        <a href="no_completados.php" class="btn btn-sm btn-outline-danger" type="button"><i class="bi bi-x-circle-fill"></i> No completados</a>
+        <a a href="javascript:history.back()" class="btn btn-outline-success me-2" type="button"><i class="bi bi-arrow-return-left"></i> Regresar</a>
       </form>
     </nav>
       <div class="mb-4">
@@ -213,7 +212,6 @@ include('query/name.php');
               <th scope="col">Documento</th>
               <th scope="col">Descripción</th>
               <th scope="col">Link</th>
-              <th scope="col">Calificación</th>
             </tr>
           </thead>
           <tbody class="text-center">
