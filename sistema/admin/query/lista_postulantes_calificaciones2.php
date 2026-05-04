@@ -57,6 +57,19 @@ while($rowCategoria = $resultadoCategorias->fetch_assoc()){
 
     $i++;
 
+    $sqlUsr = "
+        SELECT usr.id as id, usr.nombre as nombre, usr.curp as curp, 
+               usr.edad as edad, usr.municipio as municipio, usr.telefono as telefono, 
+               (SUM(calificacion.calificacion)/15) as promedio 
+        FROM usr 
+        INNER JOIN calificacion ON usr.id = calificacion.id_ext 
+        WHERE categoria = '$categoria' AND perfil = 1 
+        GROUP BY id 
+        ORDER BY promedio DESC
+    ";
+    $resultadoUsr = $conn->query($sqlUsr);
+    $contarQ = $resultadoUsr ->num_rows;
+
     echo '
     <div class="accordion-item">
         <h2 class="accordion-header" id="heading'.$i.'">
@@ -70,7 +83,7 @@ while($rowCategoria = $resultadoCategorias->fetch_assoc()){
                     '.htmlspecialchars($rowCategoria['nombre']).'
                 </div>
 
-                <span class="badge bg-primary ms-2">'.$total.'</span>
+                <span class="badge bg-primary ms-2">'.$contarQ.'</span>
             </button>
         </h2>
 
@@ -99,17 +112,17 @@ while($rowCategoria = $resultadoCategorias->fetch_assoc()){
     ';
 
     // QUERY PRINCIPAL (promedio)
-    $sqlUsr = "
-        SELECT usr.id as id, usr.nombre as nombre, usr.curp as curp, 
-               usr.edad as edad, usr.municipio as municipio, usr.telefono as telefono, 
-               (SUM(calificacion.calificacion)/15) as promedio 
-        FROM usr 
-        INNER JOIN calificacion ON usr.id = calificacion.id_ext 
-        WHERE categoria = '$categoria' AND perfil = 1 
-        GROUP BY id 
-        ORDER BY promedio DESC
-    ";
-    $resultadoUsr = $conn->query($sqlUsr);
+    // $sqlUsr = "
+    //     SELECT usr.id as id, usr.nombre as nombre, usr.curp as curp, 
+    //            usr.edad as edad, usr.municipio as municipio, usr.telefono as telefono, 
+    //            (SUM(calificacion.calificacion)/15) as promedio 
+    //     FROM usr 
+    //     INNER JOIN calificacion ON usr.id = calificacion.id_ext 
+    //     WHERE categoria = '$categoria' AND perfil = 1 
+    //     GROUP BY id 
+    //     ORDER BY promedio DESC
+    // ";
+    // $resultadoUsr = $conn->query($sqlUsr);
     
     // Verificar si la consulta de usuarios falló
     if (!$resultadoUsr) {
@@ -172,7 +185,7 @@ while($rowCategoria = $resultadoCategorias->fetch_assoc()){
             <!-- ACCORDION INTERNO -->
             <tr>
                 <td colspan="7" class="p-0">
-                    <div class="accordion accordion-flush" id="accordionFlushExample'.$idD.'">
+                    <div class="accordion accordion-flush bg-light" id="accordionFlushExample'.$idD.'">
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" 

@@ -223,7 +223,7 @@ $perfil = $_SESSION['perfil'];
 
 </main>
 
-<footer class="text-light py-5" style="background:rgb(61, 42, 93)">
+<footer class="text-light py-5" style="background-color: rgba(122, 205, 228, 0.929);">
   <div class="container">
     <div>
       <div class="row">
