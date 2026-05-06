@@ -409,7 +409,7 @@ $(document).ready(function() {
                     // location.href = 'my_profile.php';
                     Swal.fire({
                         icon: 'success',
-                        imageUrl: 'img/logo_pej2024.png',
+                        imageUrl: 'img/logo.png',
                         imageHeight: 200,
                         title: 'Registro exitoso (Migrante)',
                         text: 'Bienvenido(a) al Sistema de Postulación',
