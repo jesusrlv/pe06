@@ -320,10 +320,10 @@ $(document).ready(function() {
                     // location.href = 'my_profile.php';
                     Swal.fire({
                         icon: 'success',
-                        imageUrl: 'img/logo_pej2024.png',
+                        imageUrl: 'img/logo.png',
                         imageHeight: 200,
                         title: 'Registro exitoso',
-                        text: 'Bienvenido(a) al Sistema de Postulación PEJ2023',
+                        text: 'Bienvenido(a) al Sistema de Postulación PEJ2026',
                         confirmButtonColor: '#3085d6',
                         footer: 'INJUVENTUD'
                     }).then(function(){window.location='index.html';});

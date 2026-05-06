@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="icon.ico"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premio Estatal de la Juventud Zacatecas 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       🎨 VARIABLES PERSONALIZABLES — EDITA AQUÍ
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* COLORES PRINCIPALES */
+      --color-fondo:         #05060f;        /* Fondo oscuro del hero */
+      --color-primario:      #e8c840;        /* Amarillo dorado (acento) */
+      --color-secundario:    #b03aff;        /* Violeta vibrante */
+      --color-terciario:     #ff4d6d;        /* Rosa/rojo energético */
+      --color-texto:         #f0f0f5;        /* Texto principal */
+      --color-texto-suave:   #a0a0b8;        /* Texto secundario */
+      --color-nav-bg:        rgba(5,6,15,0.82); /* Fondo navbar */
+      --color-btn-1:         #e8c840;        /* Botón primario */
+      --color-btn-1-texto:   #05060f;
+      --color-btn-2-borde:   #e8c840;        /* Botón secundario (outline) */
+      --color-btn-2-texto:   #e8c840;
+
+      /* TIPOGRAFÍAS */
+      --fuente-titulo:       'Bebas Neue', sans-serif;
+      --fuente-cuerpo:       'Plus Jakarta Sans', sans-serif;
+
+      /* TAMAÑOS */
+      --titulo-hero:         clamp(3.2rem, 9vw, 8rem);
+      --subtitulo-hero:      clamp(1rem, 2.5vw, 1.35rem);
+
+      /* PARTÍCULAS — animación */
+      --particulas-color:    #e8c840;        /* Color de partículas flotantes */
+      --particulas-cantidad: 22;             /* (solo referencia visual; cambia el JS si quieres más) */
+
+      /* BORDES / RADIOS */
+      --radio-btn:           50px;
+      --radio-card:          16px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fuente-cuerpo);
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ═══════════════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--color-nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(232,200,64,0.12);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--fuente-titulo);
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      color: var(--color-primario);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .badge {
+      background: var(--color-primario);
+      color: var(--color-fondo);
+      font-size: 0.62rem;
+      font-family: var(--fuente-cuerpo);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--color-texto-suave);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-primario);
+      transition: width 0.25s;
+      border-radius: 2px;
+    }
+    .nav-links a:hover { color: var(--color-primario); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--color-primario);
+      color: var(--color-fondo) !important;
+      font-weight: 700 !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.82rem !important;
+      letter-spacing: 0.06em;
+      transition: opacity 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: scale(1.04) !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* HAMBURGER */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--color-primario);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(5,6,15,0.97);
+      padding: 2rem 5% 2.5rem;
+      border-bottom: 1px solid rgba(232,200,64,0.14);
+      z-index: 99;
+      flex-direction: column;
+      gap: 1.4rem;
+      animation: slideDown 0.3s ease;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-texto-suave);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--color-primario); }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════════════
+       CANVAS ANIMATION
+    ═══════════════════════════════════════════════ */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 6% 80px;
+      overflow: hidden;
+    }
+
+    /* Gradiente de fondo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 40%, rgba(176,58,255,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 60%, rgba(232,200,64,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 50% 90%, rgba(255,77,109,0.12) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* Líneas de cuadrícula decorativas */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(232,200,64,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,200,64,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 880px;
+    }
+
+    /* Pill superior */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,200,64,0.1);
+      border: 1px solid rgba(232,200,64,0.3);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-primario);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero-eyebrow .dot {
+      width: 7px; height: 7px;
+      background: var(--color-primario);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.5); }
+    }
+
+    /* Título */
+    .hero-title {
+      font-family: var(--fuente-titulo);
+      font-size: var(--titulo-hero);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--color-texto);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.38s forwards;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-terciario) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title .highlight-v {
+      background: linear-gradient(135deg, var(--color-secundario) 0%, var(--color-primario) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtítulo */
+    .hero-sub {
+      font-size: var(--subtitulo-hero);
+      font-weight: 400;
+      color: var(--color-texto-suave);
+      max-width: 600px;
+      margin: 0 auto 2.6rem;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.54s forwards;
+    }
+
+    /* Botones CTA */
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: var(--radio-btn);
+      font-family: var(--fuente-cuerpo);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: var(--color-btn-1);
+      color: var(--color-btn-1-texto);
+      box-shadow: 0 6px 32px rgba(232,200,64,0.35);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 10px 40px rgba(232,200,64,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-btn-2-texto);
+      border: 2px solid var(--color-btn-2-borde);
+      box-shadow: 0 0 0 0 rgba(232,200,64,0);
+    }
+    .btn-outline:hover {
+      background: rgba(232,200,64,0.07);
+      box-shadow: 0 6px 28px rgba(232,200,64,0.18);
+    }
+
+    .btn svg { flex-shrink: 0; }
+
+    /* Contador de días */
+    .hero-counter {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.86s forwards;
+    }
+    .counter-item {
+      text-align: center;
+    }
+    .counter-num {
+      font-family: var(--fuente-titulo);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--color-primario);
+      line-height: 1;
+    }
+    .counter-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-texto-suave);
+      margin-top: 2px;
+    }
+    .counter-divider {
+      font-family: var(--fuente-titulo);
+      font-size: 2rem;
+      color: rgba(232,200,64,0.3);
+      align-self: center;
+    }
+
+    /* LOGOS */
+    .hero-logos {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 0.7s 1.02s forwards;
+    }
+    .logos-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(160,160,184,0.5);
+      margin-bottom: 1.2rem;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.4rem;
+      flex-wrap: wrap;
+    }
+    .logo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.55;
+      transition: opacity 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .logo-placeholder:hover { opacity: 1; transform: translateY(-3px); }
+    .logo-box {
+      width: 68px; height: 42px;
+      border: 1.5px solid rgba(232,200,64,0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.04);
+      overflow: hidden;
+    }
+    .logo-box svg { width: 36px; height: 36px; opacity: 0.7; }
+    .logo-box img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 6px;
+      filter: brightness(0) invert(1);
+    }
+    .logo-name {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-texto-suave);
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeIn 1s 1.4s forwards;
+      z-index: 2;
+    }
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(160,160,184,0.4);
+    }
+    .scroll-arrow {
+      width: 22px; height: 22px;
+      border-right: 2px solid rgba(232,200,64,0.4);
+      border-bottom: 2px solid rgba(232,200,64,0.4);
+      transform: rotate(45deg);
+      animation: bounceDown 1.4s infinite;
+    }
+    @keyframes bounceDown {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(5px); }
+    }
+
+    /* Keyframes generales */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 100px 5% 70px; }
+      .logos-row { gap: 1.2rem; }
+      .counter-divider { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 280px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVBAR ═══ -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <polygon points="14,2 26,9 26,19 14,26 2,19 2,9" fill="none" stroke="#e8c840" stroke-width="1.8"/>
+        <polygon points="14,7 21,11 21,17 14,21 7,17 7,11" fill="rgba(232,200,64,0.15)" stroke="#e8c840" stroke-width="1"/>
+        <circle cx="14" cy="14" r="3" fill="#e8c840"/>
+      </svg>
+      PEJ <span class="badge">2026</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="convocatoria_2026.pdf" target="_blank">Bases</a></li>
+      <li><a href="#categorias">Categorías</a></li>
+      <li><a href="#ganadores">Ganadores</a></li>
+      <li><a href="https://juventud.zacatecas.gob.mx/pe06/" class="nav-cta" target="_blank">Postularme</a></li>
+    </ul>
+
+    <div class="nav-hamburger" id="hamburger" aria-label="Menú" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Menú móvil -->
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="convocatoria_2026.pdf" target="_blank" onclick="closeMobile()">Bases</a>
+    <a href="#categorias" onclick="closeMobile()">Categorías</a>
+    <a href="#ganadores" onclick="closeMobile()">Ganadores</a>
+    <a href="https://juventud.zacatecas.gob.mx/pe06/" onclick="closeMobile()" class="nav-cta" style="width:fit-content; color: #05060f !important;" target="_blank">Postularme</a>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="home">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <!-- Eyebrow -->
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Convocatoria abierta · Zacatecas 2026
+      </div>
+
+      <!-- Título -->
+      <h1 class="hero-title">
+        Premio<br/>
+        <span class="highlight">Estatal</span>
+        de la<br/>
+        <span class="highlight-v">Juventud</span>
+      </h1>
+
+      <!-- Subtítulo -->
+      <p class="hero-sub">
+        Reconocemos el talento, liderazgo e impacto social de jóvenes zacatecanos que están construyendo un mejor futuro para nuestra comunidad.
+      </p>
+
+      <!-- Botones CTA -->
+      <div class="hero-btns">
+        <a href="https://juventud.zacatecas.gob.mx/pe06/" class="btn btn-primary" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+          Postularme ahora
+        </a>
+        <a href="convocatoria_2026.pdf" class="btn btn-outline" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+          Ver bases y requisitos
+        </a>
+      </div>
+
+      <!-- Contador regresivo -->
+      <div class="hero-counter" id="countdown">
+        <div class="counter-item">
+          <div class="counter-num" id="cd-dias">--</div>
+          <div class="counter-label">Días</div>
+        </div>
+        <div class="counter-divider">:</div>
+        <div class="counter-item">
+          <div class="counter-num" id="cd-horas">--</div>
+          <div class="counter-label">Horas</div>
+        </div>
+        <div class="counter-divider">:</div>
+        <div class="counter-item">
+          <div class="counter-num" id="cd-min">--</div>
+          <div class="counter-label">Minutos</div>
+        </div>
+        <div class="counter-divider">:</div>
+        <div class="counter-item">
+          <div class="counter-num" id="cd-seg">--</div>
+          <div class="counter-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logos -->
+    <div class="hero-logos">
+      <p class="logos-label">Con el respaldo de</p>
+      <div class="logos-row">
+
+        <!-- LOGO 1 — Gobierno de Zacatecas (placeholder SVG; reemplaza con <img> si tienes el archivo) -->
+        <div class="logo-placeholder">
+          <div class="logo-box">
+            <svg viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="14" stroke="#e8c840" stroke-width="1.4"/>
+              <path d="M12 22l6-10 6 10H12z" fill="#e8c840" opacity="0.7"/>
+              <circle cx="18" cy="13" r="3" fill="#e8c840"/>
+            </svg>
+          </div>
+          <span class="logo-name">Gobierno de Zacatecas</span>
+        </div>
+
+       
+
+        <!-- LOGO 4 — INJUVE (agrega tu imagen real aquí) -->
+        <div class="logo-placeholder">
+          <div class="logo-box">
+            <svg viewBox="0 0 36 36" fill="none">
+              <rect x="8" y="8" width="20" height="20" rx="2" stroke="#e8c840" stroke-width="1.4" fill="rgba(232,200,64,0.08)"/>
+              <path d="M12 18l4 4 8-8" stroke="#e8c840" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="logo-name">INJUVENTUD</span>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script>
+    /* ─── Hamburger ─── */
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('nav-mobile');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMobile.classList.toggle('open');
+    });
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      navMobile.classList.remove('open');
+    }
+
+    /* ─── Countdown — fecha objetivo (ajústala aquí) ─── */
+    const FECHA_OBJETIVO = new Date('2026-05-06T10:59:59'); // 👈 cambia esta fecha
+    function updateCountdown() {
+      const now  = new Date();
+      const diff = FECHA_OBJETIVO - now;
+      if (diff <= 0) {
+        document.getElementById('cd-dias').textContent = '00';
+        document.getElementById('cd-horas').textContent = '00';
+        document.getElementById('cd-min').textContent = '00';
+        document.getElementById('cd-seg').textContent = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-dias').textContent  = String(d).padStart(2,'0');
+      document.getElementById('cd-horas').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-min').textContent   = String(m).padStart(2,'0');
+      document.getElementById('cd-seg').textContent   = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ─── Canvas particle animation ─── */
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx    = canvas.getContext('2d');
+      let W, H, particles = [], animId;
+
+      // Colores de partículas tomados de CSS variables
+      const style = getComputedStyle(document.documentElement);
+      const COLORS = [
+        style.getPropertyValue('--color-primario').trim()   || '#e8c840',
+        style.getPropertyValue('--color-secundario').trim() || '#b03aff',
+        style.getPropertyValue('--color-terciario').trim()  || '#ff4d6d',
+      ];
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+
+      function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+      function createParticle() {
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        return {
+          x:     randomBetween(0, W),
+          y:     randomBetween(0, H),
+          r:     randomBetween(1.2, 3.2),
+          vx:    randomBetween(-0.22, 0.22),
+          vy:    randomBetween(-0.36, -0.08),
+          alpha: randomBetween(0.15, 0.55),
+          color,
+          // estrella pequeña o círculo
+          shape: Math.random() > 0.5 ? 'circle' : 'diamond',
+        };
+      }
+
+      function drawDiamond(cx, cy, s) {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - s);
+        ctx.lineTo(cx + s, cy);
+        ctx.lineTo(cx, cy + s);
+        ctx.lineTo(cx - s, cy);
+        ctx.closePath();
+      }
+
+      function init() {
+        particles = [];
+        const n = Math.floor(W / 38); // densidad adaptable
+        for (let i = 0; i < n; i++) particles.push(createParticle());
+      }
+
+      function tick() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Líneas de conexión sutiles
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              ctx.save();
+              ctx.globalAlpha = (1 - dist / 130) * 0.07;
+              ctx.strokeStyle = particles[i].color;
+              ctx.lineWidth   = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        }
+
+        // Partículas
+        for (const p of particles) {
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle   = p.color;
+          if (p.shape === 'diamond') {
+            drawDiamond(p.x, p.y, p.r * 1.4);
+          } else {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          }
+          ctx.fill();
+          ctx.restore();
+
+          // Mover
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Reciclar al salir
+          if (p.y < -10 || p.x < -20 || p.x > W + 20) {
+            Object.assign(p, createParticle(), { y: H + 10 });
+          }
+        }
+
+        animId = requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(animId);
+        resize();
+        init();
+        tick();
+      });
+
+      resize();
+      init();
+      tick();
+    })();
+  </script>
+    <!-- ============================================================ -->
+  <!-- MODAL: CATEGORÍAS                                             -->
+  <!-- ============================================================ -->
+  <div id="modalCategorias" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon">🏆</div>
+        <h2 class="modal-title">Categorías <span class="modal-year">2026</span></h2>
+        <p class="modal-sub">Premio Estatal de la Juventud Zacatecas</p>
+      </div>
+      <div class="modal-body" id="categoriasList">
+        <!-- Aquí puedes agregar/modificar las categorías fácilmente -->
+        <div class="categoria-item">
+          <div class="categoria-badge oro">🥇</div>
+          <div class="categoria-info">
+            <h3>1. Logro Académico 12 a 18 años</h3>
+            <p>Reconocimiento a jóvenes con excelencia educativa y aprovechamiento sobresaliente.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge plata">🥈</div>
+          <div class="categoria-info">
+            <h3>2. Logro Académico 19 a 29 años</h3>
+            <p>Reconocimiento a jóvenes con excelencia educativa y aprovechamiento sobresaliente.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>3. Discapacidad e integración</h3>
+            <p>
+Mujeres y hombres jóvenes, quienes por su actitud (resiliencia), perseverancia y actividades individuales o de manera organizada, sean ejemplo de superación y contribuyan a generar oportunidades en el desarrollo y la integración de otras personas jóvenes con o sin discapacidad en los diversos rubros de nuestra cotidianidad (aportaciones a la comunidad, recreación, trabajo y educación).</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge oro">🏅</div>
+          <div class="categoria-info">
+            <h3>4. Ingenio emprendedor</h3>
+            <p>Liderazgo emprendedor en distintas ramas económicas que debe traducirse en habilidad para crear y desarrollar unidades de producción viables y sustentables. Además, de la implementación de iniciativas de negocios, transferencia de tecnología e innovación; fortalecimiento de la planta productiva con impacto en el aspecto económico y social de la comunidad.Asimismo, el desarrollo, difusión y promoción de una cultura emprendedora; inversión en el desarrollo de capital humano de las organizaciones productivas, destacando: gestión directiva; habilidades gerenciales; capacitación y adiestramiento de personal dirigido a la productividad y crecimiento.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>5. Responsabilidad Social</h3>
+            <p>Jóvenes que por el desarrollo de programas, proyectos o actividades, cuyo propósito sea expresión de solidaridad con comunidades y grupos sociales vulnerables del Estado, y que al ejecutarse generan opciones de solución a problemáticas específicas, mejorando en su caso, la calidad y nivel de vida de sus habitantes. De igual forma, se reconocerán los proyectos para el desarrollo de capacidades y habilidades en las comunidades; la implementación de los proyectos productivos; la colaboración en situaciones de desastre o emergencias; proyectos para mejorar la salud física y psicológica, la alimentación, la vivienda e infraestructura en las comunidades, así como proyectos para fomentar y fortalecer los valores ciudadanos.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>6. Mérito Migrante</h3>
+            <p>Promoción del conocimiento, el ejercicio y/o respeto a los derechos y obligaciones que poseen los miembros de la comunidad zacatecana en el extranjero. Participación relevante en medios impresos, en radio, en televisión y/o en cine, en términos de su profesionalismo, innovación, contenido social y/o divulgación tanto de los valores mexicanos como de la cultura zacatecana. Actividades que se destaquen por su sentido de solidaridad social y que se traduzcan en mejoramiento de las condiciones de vida de grupos, comunidades o de la sociedad en general, así como las acciones heroicas, de protección civil y atención a grupos vulnerables. Los (as) candidatos(as) deberán preferentemente pertenecer a algún club registrado en alguna de las federaciones de clubes zacatecanos en algún estado de la Unión Americana.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>7. Mérito Campesino</h3>
+            <p>Acciones de las y los jóvenes que en el medio rural promuevan la vigencia y el desarrollo de sus municipios y comunidades. Iniciativas para preservar y/o transmitir su patrimonio cultural. Elaboración y desarrollo de proyectos productivos; mejoramiento y conservación ambiental; aplicación de tecnologías alternativas para el aprovechamiento de los recursos naturales y actividades de capacitación y educación en materia ambiental en sus municipios y comunidades.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>8. Cultura Cívica, Política y/o Democracia</h3>
+            <p>Las y los jóvenes que con sus propuestas promuevan el avance en la democracia participativa requisito necesario para la transformación de nuestro país, hacia uno donde prevalezca la justicia, donde cada ciudadano asuma su papel en la definición del rumbo de México y desempeñe la parte que le corresponde desde lo local para contribuir al progreso nacional.
+            Premiando su aportación a una cultura de participación ciudadana, en el ejercicio de acciones basadas en la reflexión, el análisis y fortalecimiento de una cultura democrática sustentada en los valores del diálogo, la tolerancia, el respeto a la pluralidad y a la generación de acuerdos; estas acciones se pueden llevar a cabo por medio de foros, talleres, investigaciones, simulacros, iniciativas ciudadanas, modelos de prácticas democráticas, así como la elaboración de estudios, ponencias, investigaciones, trabajos o publicaciones en revistas; que por su impacto modifiquen entornos y prácticas ciudadanas.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>9. Cultura Cívica, Política y/o Democracia</h3>
+            <p>Escritores(as) del género literario y narrativo: poemas, sonetos, novelas, ensayos y cuentos que hayan permitido fortalecer y salvaguardar las tradiciones de una o de varias regiones del Estado.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>10. Artes escenicas (Teatro)</h3>
+            <p>Actores, productores que destacan por su trayectoria, intercambios culturales, presentaciones, cursos o actividades curriculares y proyectos en beneficio de la sociedad zacatecana.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>8. Cultura Cívica, Política y/o Democracia</h3>
+            <p>Bailarines que destaquen por su trayectoria, intercambios culturales, cursos y capacitaciones, presentaciones nacionales o internacionales, proyectos o actividades en beneficio de la sociedad en general.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>9. Cultura Cívica, Política y/o Democracia</h3>
+            <p>Bailarines que destaquen por su trayectoria, intercambios culturales, cursos y capacitaciones, presentaciones nacionales o internacionales, proyectos o actividades en beneficio de la sociedad en general.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>10. Cultura Cívica, Política y/o Democracia</h3>
+            <p>a.- Las y los Jóvenes destacados en las artes plásticas y que hayan representado a Zacatecas en el país o en el extranjero,que a través de la práctica del dibujo o la pintura han aportado a la juventud herramientas para sobresalir y mantenerlos alejados de las adicciones, que hayan destacado en el séptimo arte (comerciales, cortometrajes, largometrajes y animaciones), así como aquellos que su quehacer versa en la arquitectura, la escultura, la fotografía. En artes populares serán tomadas en cuenta las expresiones de obras artesanales, con técnicas y materiales tradicionales, así como la creación de nuevos diseños que, por su calidad y aportaciones a nuestra vida cotidiana, contribuyan al fortalecimiento de nuestra identidad, a la vez que beneficien a su comunidad.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>11. Arte urbano</h3>
+            <p>a.- La representación de ideas, testimonios, demandas sociales, anécdotas, innovación y tendencias a través de la mezcla de colores de aerosol sobre una superficie de amplias dimensiones.</p>
+            <p>b.- A las y los jóvenes que hayan fomentado a través de su arte el mantener vigentes valores y buenas prácticas sociales. Y en general todas aquellas manifestaciones de las llamadas tribus urbanas.</p>
+          </div>
+        </div>
+        <div class="categoria-item">
+          <div class="categoria-badge bronce">🥉</div>
+          <div class="categoria-info">
+            <h3>12. Ciencia y Tecnología</h3>
+            <p>Acciones que contribuyan a fomentar y generar investigación científica; creación e innovación tecnológica; investigaciones básicas en las ciencias naturales, de la vida, sociales, de la conducta y las humanidades, fortaleciendo los espacios de expresión de su creatividad e inventiva; generación de conocimientos, difusión y transmisión de los mismos a nivel nacional e internacional, así como su desarrollo y aplicación sustentable. </p>
+          </div>
+        </div>
+        <div class="categoria-extra">
+          <hr class="categoria-hr">
+          <p class="categoria-footer">📌 Cierre de convocatoria: <strong>6 de mayo de 2026</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="convocatoria_2026.pdf" class="modal-btn" target="_blank">📄 Descargar bases completas</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: GANADORES (preparado para que tú llenes)               -->
+  <!-- ============================================================ -->
+  <div id="modalGanadores" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon">⭐</div>
+        <h2 class="modal-title">Ganadores <span class="modal-year">2025</span></h2>
+        <p class="modal-sub">Edición anterior — Premio Estatal de la Juventud</p>
+      </div>
+      <div class="modal-body" id="ganadoresList" hidden>
+        <!-- =============================================== -->
+        <!-- 🔽 🔽 🔽 AQUÍ TÚ AGREGA LOS GANADORES 🔽 🔽 🔽 -->
+        <!-- =============================================== -->
+
+        <div class="ganador-item">
+          <div class="ganador-avatar">🌟</div>
+          <div class="ganador-info">
+            <h3>Anna García Hernández</h3>
+            <span class="ganador-cat">Categoría: Logro Académico</span>
+            <p>Promedio perfecto y liderazgo en investigación científica.</p>
+          </div>
+        </div>
+
+        <div class="ganador-item">
+          <div class="ganador-avatar">🚀</div>
+          <div class="ganador-info">
+            <h3>Javier Luna Ramírez</h3>
+            <span class="ganador-cat">Categoría: Innovación y Emprendimiento</span>
+            <p>Creador de app educativa usada en 12 municipios del estado.</p>
+          </div>
+        </div>
+
+        <div class="ganador-item">
+          <div class="ganador-avatar">🌿</div>
+          <div class="ganador-info">
+            <h3>Mariana Torres Veyna</h3>
+            <span class="ganador-cat">Categoría: Protección al Medio Ambiente</span>
+            <p>Líder del programa de reforestación más grande de Zacatecas.</p>
+          </div>
+        </div>
+
+        <div class="ganador-item">
+          <div class="ganador-avatar">🎭</div>
+          <div class="ganador-info">
+            <h3>Carlos Mendoza Delgado</h3>
+            <span class="ganador-cat">Categoría: Expresiones Artísticas y Culturales</span>
+            <p>Pintor joven con exposiciones internacionales.</p>
+          </div>
+        </div>
+
+        <div class="ganador-item">
+          <div class="ganador-avatar">🤝</div>
+          <div class="ganador-info">
+            <h3>Fernanda López Aceves</h3>
+            <span class="ganador-cat">Categoría: Activismo y Compromiso Social</span>
+            <p>Fundadora de red de apoyo para jóvenes en situación vulnerable.</p>
+          </div>
+        </div>
+
+        <!-- 👆 👆 👆 AQUÍ TERMINA TU LISTA 👆 👆 👆 -->
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" onclick="cerrarModalGanadores()">Volver</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ============================================ */
+    /* MODALES MODERNOS — ESTILOS COMPLETOS         */
+    /* ============================================ */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(5, 6, 15, 0.92);
+      backdrop-filter: blur(8px);
+      animation: fadeOverlay 0.25s ease;
+    }
+
+    .modal-container {
+      position: relative;
+      background: linear-gradient(145deg, #0a0c18 0%, #060714 100%);
+      border: 1px solid rgba(232, 200, 64, 0.25);
+      border-radius: 32px;
+      width: 90%;
+      max-width: 620px;
+      max-height: 85vh;
+      overflow-y: auto;
+      z-index: 1001;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(232, 200, 64, 0.15);
+      animation: modalSlideUp 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+    }
+
+    .modal-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .modal-container::-webkit-scrollbar-track {
+      background: #14182b;
+      border-radius: 10px;
+    }
+    .modal-container::-webkit-scrollbar-thumb {
+      background: #e8c840;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      color: #a0a0b8;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .modal-close:hover {
+      background: rgba(232, 200, 64, 0.2);
+      color: #e8c840;
+      transform: scale(1.05);
+    }
+
+    .modal-header {
+      text-align: center;
+      padding: 2rem 1.8rem 0.8rem;
+      border-bottom: 1px solid rgba(232, 200, 64, 0.15);
+    }
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      background: rgba(232, 200, 64, 0.12);
+      width: 70px;
+      height: 70px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #fff, #e8c840);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.25rem;
+    }
+    .modal-year {
+      background: rgba(232, 200, 64, 0.2);
+      padding: 2px 10px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      color: #e8c840;
+      display: inline-block;
+      margin-left: 6px;
+    }
+    .modal-sub {
+      font-size: 0.85rem;
+      color: #a0a0b8;
+      letter-spacing: 0.03em;
+    }
+    .modal-body {
+      padding: 1.5rem 1.8rem;
+    }
+    .modal-footer {
+      padding: 1rem 1.8rem 1.8rem;
+      display: flex;
+      justify-content: center;
+    }
+    .modal-btn {
+      background: #e8c840;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: #05060f;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-btn.secondary {
+      background: transparent;
+      border: 1px solid #e8c840;
+      color: #e8c840;
+    }
+    .modal-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 6px 20px rgba(232, 200, 64, 0.3);
+    }
+    .modal-btn.secondary:hover {
+      background: rgba(232, 200, 64, 0.1);
+    }
+
+    /* Categorías item */
+    .categoria-item {
+      display: flex;
+      gap: 18px;
+      padding: 1rem 0;
+      border-bottom: 1px dashed rgba(232, 200, 64, 0.12);
+    }
+    .categoria-item:last-of-type {
+      border-bottom: none;
+    }
+    .categoria-badge {
+      font-size: 2rem;
+      width: 52px;
+      height: 52px;
+      background: rgba(232, 200, 64, 0.1);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .categoria-info h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: #ffffff;
+    }
+    .categoria-info p {
+      font-size: 0.8rem;
+      color: #b0b0ca;
+      line-height: 1.4;
+    }
+    .categoria-hr {
+      margin: 1rem 0;
+      border-color: rgba(232, 200, 64, 0.15);
+    }
+    .categoria-footer {
+      font-size: 0.78rem;
+      text-align: center;
+      color: #c0c0dd;
+    }
+
+    /* Ganadores item */
+    .ganador-item {
+      display: flex;
+      gap: 18px;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(232, 200, 64, 0.1);
+    }
+    .ganador-item:last-child {
+      border-bottom: none;
+    }
+    .ganador-avatar {
+      font-size: 2.4rem;
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(145deg, #12172e, #080b18);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(232, 200, 64, 0.3);
+    }
+    .ganador-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+    .ganador-cat {
+      font-size: 0.7rem;
+      display: inline-block;
+      background: rgba(232, 200, 64, 0.18);
+      padding: 2px 8px;
+      border-radius: 50px;
+      color: #e8c840;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+    .ganador-info p {
+      font-size: 0.78rem;
+      color: #b0b0ca;
+      line-height: 1.4;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes fadeOverlay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .modal-container {
+        width: 92%;
+      }
+      .modal-body {
+        padding: 1rem 1.2rem;
+      }
+      .categoria-item, .ganador-item {
+        gap: 12px;
+      }
+    }
+  </style>
+
+  <script>
+    // =====================================================
+    // ABRIR MODALES DESDE ENLACES DEL NAVBAR
+    // =====================================================
+    // Modificar enlaces de categorías y ganadores para que abran modales
+    document.addEventListener('DOMContentLoaded', function() {
+      const modalCats = document.getElementById('modalCategorias');
+      const modalGan = document.getElementById('modalGanadores');
+      const closeBtns = document.querySelectorAll('.modal-close');
+
+      // Buscar o crear enlaces dentro del navbar y menú móvil
+      function hookModalLinks() {
+        // Enlace "Categorías" del navbar
+        const catLink = document.querySelector('.nav-links a[href="#categorias"]');
+        const catLinkMobile = document.querySelector('.nav-mobile a[href="#categorias"]');
+        // Enlace "Ganadores" del navbar
+        const ganLink = document.querySelector('.nav-links a[href="#ganadores"]');
+        const ganLinkMobile = document.querySelector('.nav-mobile a[href="#ganadores"]');
+
+        if (catLink) {
+          catLink.removeEventListener('click', openCategorias);
+          catLink.addEventListener('click', openCategorias);
+        }
+        if (catLinkMobile) {
+          catLinkMobile.removeEventListener('click', openCategorias);
+          catLinkMobile.addEventListener('click', openCategorias);
+        }
+        if (ganLink) {
+          ganLink.removeEventListener('click', openGanadores);
+          ganLink.addEventListener('click', openGanadores);
+        }
+        if (ganLinkMobile) {
+          ganLinkMobile.removeEventListener('click', openGanadores);
+          ganLinkMobile.addEventListener('click', openGanadores);
+        }
+      }
+
+      function openCategorias(e) {
+        e.preventDefault();
+        if (modalCats) modalCats.style.display = 'flex';
+        if (typeof closeMobile === 'function') closeMobile();
+      }
+
+      function openGanadores(e) {
+        e.preventDefault();
+        if (modalGan) modalGan.style.display = 'flex';
+        if (typeof closeMobile === 'function') closeMobile();
+      }
+
+      // Función para cerrar modal click en overlay
+      function closeModalOnOverlay(modal) {
+        if (!modal) return;
+        const overlay = modal.querySelector('.modal-overlay');
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            modal.style.display = 'none';
+          });
+        }
+      }
+
+      // Cerrar con X
+      closeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const modalParent = btn.closest('.modal');
+          if (modalParent) modalParent.style.display = 'none';
+        });
+      });
+
+      // Cerrar al hacer clic fuera (overlay)
+      closeModalOnOverlay(modalCats);
+      closeModalOnOverlay(modalGan);
+
+      // Prevenir cierre al hacer clic dentro del contenedor
+      document.querySelectorAll('.modal-container').forEach(container => {
+        container.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      });
+
+      // Escapar tecla ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (modalCats && modalCats.style.display === 'flex') modalCats.style.display = 'none';
+          if (modalGan && modalGan.style.display === 'flex') modalGan.style.display = 'none';
+        }
+      });
+
+      hookModalLinks();
+
+      // También exponer en window por si llamas manual
+      window.cerrarModalGanadores = function() {
+        if (modalGan) modalGan.style.display = 'none';
+      };
+      window.cerrarModalCategorias = function() {
+        if (modalCats) modalCats.style.display = 'none';
+      };
+    });
+  </script>
+</body>
+</html>
