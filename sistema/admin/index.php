@@ -455,7 +455,7 @@ $categoria = $_SESSION['categoria'];
 // Como solo es front-end, uso datos de muestra. Conéctalo con tu backend mediante AJAX.
 
 const datosEjemplo = {
-  totalParticipantes: 1247,
+  totalParticipantes: 0,
   expedientesCompletados: 856,
   expedientesNoCompletados: 391,
   totalMunicipios: 58,
