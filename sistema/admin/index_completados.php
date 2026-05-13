@@ -186,7 +186,7 @@ $perfil = $_SESSION['perfil'];
     <div class="container">
     <nav class="navbar bg-body-tertiary">
       <form class="container-fluid justify-content-start">
-        <a href="completados.php" class="btn btn-success me-2" type="button"><i class="bi bi-check-circle-fill"></i> Completados</a>
+        <a href="index_completados.php" class="btn btn-success me-2" type="button"><i class="bi bi-check-circle-fill"></i> Completados</a>
         <a href="index_no_completados.php" class="btn btn-sm btn-outline-danger me-2" type="button"><i class="bi bi-x-circle-fill"></i> No completados</a>
         <a href="index_general.php" class="btn btn-sm btn-outline-warning me-2" type="button"><i class="bi bi-cone-striped"></i> Listado general</a>
         <a href="index_calificaciones.php" class="btn btn-sm btn-outline-info me-2" type="button"><i class="bi bi-list-ol"></i> Calificaciones</a>

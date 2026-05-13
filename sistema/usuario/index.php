@@ -238,7 +238,7 @@ else{
               <h5 class="card-title">Convocatoria</h5>
               <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-exclamation-triangle-fill text-warning"></i> Convocatoria vigente</h6>
               <p class="card-text">Convocatoria vigente acerca de la postulación al Premio Estatal de la Juventud 2026.</p>
-              <p><a href="generador_constancia.php" target="_blank" style="text-decoration:none" class="btn btn-primary" id="constanciaP" hidden> <i class="bi bi-file-earmark-richtext"></i> Constancia de participación al PEJ204</a></p>
+              <p><a href="generador_constancia.php" target="_blank" style="text-decoration:none" class="btn btn-primary" id="constanciaP" hidden> <i class="bi bi-file-earmark-richtext"></i> Constancia de participación al PEJ2026</a></p>
               
             </div>
             <div class="card-footer">
