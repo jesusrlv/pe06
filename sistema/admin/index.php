@@ -334,7 +334,7 @@ $categoria = $_SESSION['categoria'];
 
     <!-- GRÁFICOS -->
     <div class="row g-4 mb-5">
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="card p-3 border-0 shadow-sm">
           <h6 class="fw-bold mb-3"><i class="bi bi-gender-ambiguous"></i> Participantes por sexo</h6>
           <canvas id="sexoChart" style="max-height: 250px;"></canvas>
@@ -344,18 +344,30 @@ $categoria = $_SESSION['categoria'];
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <div class="card p-3 border-0 shadow-sm">
           <h6 class="fw-bold mb-3"><i class="bi bi-tags"></i> Participantes por categoría</h6>
           <canvas id="categoriaChart" style="max-height: 250px;"></canvas>
         </div>
-      </div>
-      <div class="col-lg-4">
+      </div> -->
+      <div class="col-lg-6">
         <div class="card p-3 border-0 shadow-sm">
           <h6 class="fw-bold mb-3"><i class="bi bi-clipboard-data"></i> Estado de expedientes</h6>
           <canvas id="expedienteChart" style="max-height: 250px;"></canvas>
         </div>
       </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="row g-0 mb-5">
+
+      <div class="col-lg-12 h-25" style="height: 75%;">
+        <div class="card p-3 border-0 shadow-sm">
+          <h6 class="fw-bold mb-3"><i class="bi bi-tags"></i> Participantes por categoría</h6>
+          <canvas id="categoriaChart" style="max-height: 400px;"></canvas>
+        </div>
+      </div>
+      
     </div>
 
     <!-- TABLA DE MUNICIPIOS -->
