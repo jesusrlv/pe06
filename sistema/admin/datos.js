@@ -29,7 +29,7 @@ $.ajax({
                 {nombre: 'Loreto', participantes: 43},
                 {nombre: 'Otros', participantes: 230}
             ],
-            edades: data.edades || [85, 342, 421, 278, 98, 23]
+            edades: data.edades.map(e => e.total) || [85, 342, 421, 278, 98, 23]
         };
         
         // Cargar todos los datos en el DOM
@@ -79,7 +79,7 @@ function cargarDatosEnDOM(datos) {
     // Tabla de municipios
     let municipiosHtml = '';
     datos.municipios.forEach((m, i) => {
-        municipiosHtml += `<tr><td class="fw-medium">${i+1}</td><td class="fw-medium">${m.nombre}</td><td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">${m.participantes.toLocaleString()}</span></td></tr>`;
+        municipiosHtml += `<tr><td class="fw-medium">${i+1}</td><td class="fw-medium">${m.municipio}</td><td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">${m.total.toLocaleString()}</span></td></tr>`;
     });
     document.getElementById('municipiosBody').innerHTML = municipiosHtml;
     
@@ -108,7 +108,7 @@ function cargarDatosEnDOM(datos) {
     });
     
     // Gráfico de edades
-    if (window.edadChart) window.edadChart.destroy();
+    // if (window.edadChart) window.edadChart.destroy();
     window.edadChart = new Chart(document.getElementById('edadChart'), {
         type: 'line',
         data: { labels: ['15-17', '18-20', '21-23', '24-26', '27-29', '30+'], datasets: [{ label: 'Participantes', data: datos.edades, borderColor: '#199bd8', backgroundColor: 'rgba(25, 155, 216, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#199bd8', pointRadius: 4 }] },

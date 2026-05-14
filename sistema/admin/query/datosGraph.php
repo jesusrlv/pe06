@@ -48,6 +48,24 @@ while ($row = $resultCategorias->fetch_assoc()) {
     $categorias[] = $row;
 }
 
+// edades
+$sqlEdades = "SELECT edad, COUNT(*) as total FROM usr WHERE perfil = 1 GROUP BY edad ORDER BY edad";
+$resultEdades = $conn->query($sqlEdades);
+$edades = [];
+while ($row = $resultEdades->fetch_assoc()) {
+    $edades[] = $row;
+}
+
+// municipios
+$sqlMunicipios = "SELECT municipio.municipio as municipio, COUNT(*) as total FROM usr 
+INNER JOIN municipio ON usr.municipio = municipio.id
+WHERE usr.perfil = 1 GROUP BY municipio.municipio ORDER BY total DESC";
+$resultMunicipios = $conn->query($sqlMunicipios);
+$municipios = [];
+while ($row = $resultMunicipios->fetch_assoc()) {
+    $municipios[] = $row;
+}
+
 echo json_encode([
     
     'totalPostulantes' => $totalPostulantes,
@@ -56,7 +74,9 @@ echo json_encode([
     'totalMunicipios' => $totalMunicipios,
     'hombres' => $hombres,
     'mujeres' => $mujeres,
-    'categorias' => $categorias
+    'categorias' => $categorias,
+    'edades' => $edades,
+    'municipios' => $municipios
     ]);
 
 ?>
