@@ -305,21 +305,21 @@ $categoria = $_SESSION['categoria'];
       <div class="col-md-6 col-lg-3">
         <div class="stats-card bg-soft-primary">
           <i class="bi bi-people-fill card-icon"></i>
-          <p class="card-value text-primary" id="totalParticipantes">0</p>
+          <p class="card-value text-primary" id="totalParticipantes"></p>
           <p class="card-label">Total de participantes</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-3">
         <div class="stats-card bg-soft-success">
           <i class="bi bi-check-circle-fill card-icon"></i>
-          <p class="card-value text-success" id="expedientesCompletados">0</p>
+          <p class="card-value text-success" id="expedientesCompletados"></p>
           <p class="card-label">Expedientes completados</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-3">
         <div class="stats-card bg-soft-danger">
           <i class="bi bi-x-circle-fill card-icon"></i>
-          <p class="card-value text-danger" id="expedientesNoCompletados">0</p>
+          <p class="card-value text-danger" id="expedientesNoCompletados"></p>
           <p class="card-label">Expedientes no completados</p>
         </div>
       </div>

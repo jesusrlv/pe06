@@ -22,11 +22,13 @@ $mujeres = $datos['mujeres'];
 // completos e incompletos
 $sqlCompletos = "SELECT 
     SUM(CASE WHEN total_docs = 11 THEN 1 ELSE 0 END) AS completos,
-    SUM(CASE WHEN total_docs < 11 THEN 1 ELSE 0 END) AS incompletos
+    SUM(CASE WHEN total_docs != 11 OR total_docs IS NULL THEN 1 ELSE 0 END) AS incompletos
 FROM (
-    SELECT COUNT(*) AS total_docs 
-    FROM documentos 
-    GROUP BY id_ext
+    SELECT usr.id, COUNT(documentos.id_ext) AS total_docs
+    FROM usr 
+    LEFT JOIN documentos ON usr.id = documentos.id_ext
+    WHERE usr.perfil = 1
+    GROUP BY usr.id
 ) AS subconsulta";
 $resultCompletos = $conn->query($sqlCompletos);
 $rowCompletos = $resultCompletos->fetch_assoc();
