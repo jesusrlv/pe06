@@ -29,7 +29,12 @@ $.ajax({
                 {nombre: 'Loreto', participantes: 43},
                 {nombre: 'Otros', participantes: 230}
             ],
-            edades: data.edades.map(e => e.total) || [85, 342, 421, 278, 98, 23]
+            // edades: data.edades.map(e => e.total, f => f.edad) || [0, 0, 0, 0, 0, 0] // Asegurarse de que sea un array de números
+
+            edades: data.edades.map(e => ({ 
+                edad: e.edad, 
+                total: e.total 
+            }))
         };
         
         // Cargar todos los datos en el DOM
@@ -111,7 +116,9 @@ function cargarDatosEnDOM(datos) {
     // if (window.edadChart) window.edadChart.destroy();
     window.edadChart = new Chart(document.getElementById('edadChart'), {
         type: 'line',
-        data: { labels: ['15-17', '18-20', '21-23', '24-26', '27-29', '30+'], datasets: [{ label: 'Participantes', data: datos.edades, borderColor: '#199bd8', backgroundColor: 'rgba(25, 155, 216, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#199bd8', pointRadius: 4 }] },
+        data: { labels: [
+            ...datos.edades.map(e => e.edad)
+        ], datasets: [{ label: 'Participantes', data: datos.edades.map(e => e.total), borderColor: '#199bd8', backgroundColor: 'rgba(25, 155, 216, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#199bd8', pointRadius: 4 }] },
         options: { responsive: true, maintainAspectRatio: true }
     });
 }

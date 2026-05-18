@@ -51,7 +51,7 @@ while ($row = $resultCategorias->fetch_assoc()) {
 }
 
 // edades
-$sqlEdades = "SELECT edad, COUNT(*) as total FROM usr WHERE perfil = 1 GROUP BY edad ORDER BY edad";
+$sqlEdades = "SELECT edad as edad, COUNT(*) as total FROM usr WHERE perfil = 1 GROUP BY edad ORDER BY edad";
 $resultEdades = $conn->query($sqlEdades);
 $edades = [];
 while ($row = $resultEdades->fetch_assoc()) {
