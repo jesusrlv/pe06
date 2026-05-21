@@ -36,6 +36,44 @@ $.ajax({
                 total: e.total 
             }))
         };
+
+        // datos de municipio
+        if (Array.isArray(data.municipios)) {
+            let variable = 0;
+            let num = 0;
+          console.log('Número de elementos en el array:', data.municipios.length);
+            // Recorrer el array de municipios y sumar el total de participantes
+            data.municipios.forEach((m, i) => {
+                console.log(`Municipio ${i}:`, m);
+                num = parseInt(m.total);
+                variable = variable + num;
+            });
+                console.log('Total de participantes por municipio:', variable);
+            
+            // porcentaje por municipio
+            data.municipios.forEach((n, i) => {
+                var elemento = document.querySelector('[data-name="' + n.municipio + '"]');
+                console.log(`Municipio ${i}:`, n);
+                num2 = parseInt(n.total);
+                variable2 = num2 / variable * 100;
+                console.log(`Porcentaje de ${n.municipio}:`, variable2.toFixed(2) + '%');
+
+                if (elemento) {
+                // Cambia el color según la condición
+                    if (variable2 > 0 ) {
+                        elemento.style.fill = "#99e7ff"; // Color para más de 0 espacios
+                        elemento.style.stroke = "#004f67"; // Color para más de 0 espacios
+                    } else {
+                        elemento.style.fill = "#004f67"; // Color para 0 espacios
+                        elemento.style.stroke = "#99e7ff"; // Color para 0 espacios
+                    }
+                } else {
+                    console.error(`Elemento con ID "${n.municipio}" no encontrado en el DOM.`);
+                }
+
+            });
+        }
+
         
         // Cargar todos los datos en el DOM
         cargarDatosEnDOM(datosDashboard);
