@@ -216,22 +216,32 @@ $(document).ready(function() {
 
 // Después de cargar los datos del AJAX
 function aplicarPopovers(datos) {
-    // Recorrer cada municipio del JSON
-    datos.municipios.forEach(municipio => {
-        // Buscar el elemento del mapa por su ID (debe coincidir con el nombre del municipio)
-        // const elemento = document.getElementById(municipio.nombre);
-        const elemento = document.querySelector('[data-name="' + municipio.municipio + '"]');
+    // Primero, obtener todos los elementos del mapa con data-name
+    const todosLosElementos = document.querySelectorAll('[data-name]');
+    
+    // Crear un Set con los municipios que tienen datos
+    const municipiosConDatos = new Set(datos.municipios.map(m => m.municipio));
+    
+    // Recorrer todos los elementos del mapa
+    todosLosElementos.forEach(elemento => {
+        const nombreMunicipio = elemento.getAttribute('data-name');
+        let total = 0;
         
-        if (elemento) {
-            // Inicializar el tooltip/popover
-            $(elemento).popover({
-                trigger: 'hover',  // Se activa con hover
-                placement: 'top',   // Posición arriba
-                html: true,         // Permite HTML
-                title: municipio.municipio,
-                content: `Total: ${municipio.total.toLocaleString()} participantes`,
-                customClass: 'mapa-popover'
-            });
+        // Buscar si el municipio existe en los datos
+        const municipioData = datos.municipios.find(m => m.municipio === nombreMunicipio);
+        
+        if (municipioData) {
+            total = municipioData.total;
         }
+        
+        // Inicializar popover para cada elemento
+        $(elemento).popover({
+            trigger: 'hover',
+            placement: 'top',
+            html: true,
+            title: nombreMunicipio,
+            content: `Total: ${total.toLocaleString()} participantes`,
+            customClass: 'mapa-popover'
+        });
     });
 }

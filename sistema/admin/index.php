@@ -426,15 +426,17 @@ $categoria = $_SESSION['categoria'];
           </div>
         </div>
 
-      <div class="col-lg-6 h-25" style="height: 75%;">
+      <div class="col-lg-6 h-25" style="height: 85%;">
         <div class="card border-0 shadow-sm mb-5">
           <div class="card-header bg-white border-0 pt-3">
             <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt-fill"></i> Mapa por municipio</h6>
             </div>
             <div class="card-body">
 
-        <div class="container contenedorGeneral" id="">
-      <svg id="mapa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 3995.94 5067.46">
+        <div class="container contenedorGeneral" id="" style="height: 100%;">
+
+          
+      <svg id="mapa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 3995.94 5067.46" class="p-5 border-0 shadow-sm">
           
           <path id="melchorOcampo" data-name="Melchor Ocampo" class="cls-14" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
           data-bs-title="This top tooltip is themed via CSS variables." d="M2382.2,13,2425,31.3l39.9-11,99.9,44.6,23.4,26.6,24.3-3.9,17.3,21.4,24.3,4.5,129.5,58.1,13.1,27.9,18,10.4,28.5,42.6,30.2,10.1,14.8,36.7,24.6,16.4,12,22.7,25.3-13.1L2988,328l10.5,13.3,25.3-19,42.8,72.2-4.9,20.3-17,11.6,33.5,38.9-17,56.4-47.1,48.9-41.1-9.2,12.2-30.2-43.5-23.9-42.1,8.4-17.5,29.7-262.9-100-73.1-13.5-26.9-37.3-35.3,4.1L2425.5,331l4-34-52.8-51.6-20.6,28.4-23.5-2.9,5.9-21.8-35.4-8.5-21.4,15.3-34-7.1,2.4-24.7-24.2-32.4L2186.7,170l-9.3-34.1-64.2-70.7,10.5-48.7L2181,3.4l49.3,14.7L2382.2,13Z"/>
