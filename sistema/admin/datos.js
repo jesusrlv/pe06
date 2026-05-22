@@ -37,6 +37,8 @@ $.ajax({
             }))
         };
 
+        aplicarPopovers(datosDashboard);
+
         // datos de municipio
         if (Array.isArray(data.municipios)) {
             let variable = 0;
@@ -59,14 +61,41 @@ $.ajax({
                 console.log(`Porcentaje de ${n.municipio}:`, variable2.toFixed(2) + '%');
 
                 if (elemento) {
-                // Cambia el color según la condición
-                    if (variable2 > 0 ) {
-                        elemento.style.fill = "#99e7ff"; // Color para más de 0 espacios
-                        elemento.style.stroke = "#004f67"; // Color para más de 0 espacios
-                    } else {
-                        elemento.style.fill = "#004f67"; // Color para 0 espacios
-                        elemento.style.stroke = "#99e7ff"; // Color para 0 espacios
+                    // Calcular percentil (0-20% = más bajo, 80-100% = más alto)
+                    let percentil = (num2 / variable) * 100;
+                    
+                    // Definir colores según percentiles (de menor a mayor)
+                    let fillColor, strokeColor;
+                    
+                    
+                    if (percentil == 0) {
+                        fillColor = "#c70c51";      // Menor
+                        strokeColor = "#2244aa";
+                    } else if (percentil <= 20 && percentil > 0) {
+                        fillColor = "#cbe2fe";
+                        strokeColor = "#10288c";
+                    } else if (percentil <= 40 && percentil > 20) {
+                        fillColor = "#4b0090";
+                        strokeColor = "#a8b5e8";
+                    } else if (percentil <= 60 && percentil > 40) {
+                        fillColor = "#4466aa";
+                        strokeColor = "#7bb3d9";
+                    } else if (percentil <= 80 && percentil > 60) {
+                        fillColor = "#2244aa";
+                        strokeColor = "#f296b5";
+                    } else if (percentil <= 100 && percentil > 80) {
+                        fillColor = "#10288c";      // Mayor
+                        strokeColor = "#d1d4d7";
                     }
+                    // else {
+                    //     // Percentil 80-100% (más alto)
+                    //     fillColor = "#99e7ff";
+                    //     strokeColor = "#004f67";
+                    // }
+                    
+                    elemento.style.fill = fillColor;
+                    elemento.style.stroke = strokeColor;
+                    
                 } else {
                     console.error(`Elemento con ID "${n.municipio}" no encontrado en el DOM.`);
                 }
@@ -184,3 +213,25 @@ $(document).ready(function() {
         });
     });
 });
+
+// Después de cargar los datos del AJAX
+function aplicarPopovers(datos) {
+    // Recorrer cada municipio del JSON
+    datos.municipios.forEach(municipio => {
+        // Buscar el elemento del mapa por su ID (debe coincidir con el nombre del municipio)
+        // const elemento = document.getElementById(municipio.nombre);
+        const elemento = document.querySelector('[data-name="' + municipio.municipio + '"]');
+        
+        if (elemento) {
+            // Inicializar el tooltip/popover
+            $(elemento).popover({
+                trigger: 'hover',  // Se activa con hover
+                placement: 'top',   // Posición arriba
+                html: true,         // Permite HTML
+                title: municipio.municipio,
+                content: `Total: ${municipio.total.toLocaleString()} participantes`,
+                customClass: 'mapa-popover'
+            });
+        }
+    });
+}

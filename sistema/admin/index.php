@@ -64,37 +64,36 @@ $categoria = $_SESSION['categoria'];
     <style>
 
       .contenedorGeneral{
-    width: 60vh;
-    height: auto;
-    padding: 10px;
-}
+          width: 60vh;
+          height: auto;
+          padding: 10px;
+      }
 
-.container path {
-    /* fill:#850707d5;
-    stroke: #ea7d2a; */
-    fill:#004f67;
-    stroke: #99e7ff;
-    stroke-width: 12px;
-    transition: all 1s;
-    transform-origin: 50% 50%;
-    position: relative;
-    z-index: -1;
-    
-}
-.container svg path:hover {
-    /* fill: #b2b420a8; */
-    fill: #99e7ff;
-    stroke: #004f67;
-    transform: scale(1.01);
-    transition: width 0.8s, height 0.8s, transform 0.3s;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    
-}
+      .container path {
+         
+          fill: #c9d1f3;
+          stroke: #ffffff;
+          stroke-width: 12px;
+          transition: all 1s;
+          transform-origin: 50% 50%;
+          position: relative;
+          z-index: -1;
+          
+      }
+      .container svg path:hover {
+          /* fill: #b2b420a8; */
+          fill: #ff4885;
+          stroke: #10288c;
+          transform: scale(1.01);
+          transition: width 0.8s, height 0.8s, transform 0.3s;
+          filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+          
+      }
 
-.container svg path {
-    position: relative;
-    z-index: 1;
-}
+      .container svg path {
+          position: relative;
+          z-index: 1;
+      }
 
       body{
         font-family: 'Montserrat', sans-serif;
@@ -177,10 +176,10 @@ $categoria = $_SESSION['categoria'];
         box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
         transition: all 0.3s ease;
       }
-      .card:hover{
+      /* .card:hover{
         transform: scale(1.05);
         box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-      }
+      } */
      
       /* ESTILOS NUEVOS PARA DASHBOARD */
       .stats-card {
@@ -405,7 +404,7 @@ $categoria = $_SESSION['categoria'];
     </div>
 
     <!-- TABLA DE MUNICIPIOS -->
-     <div class="row g-0 mb-5">
+     <div class="row g-2 mb-5">
       <div class="col-lg-6 h-25" style="height: 75%;">
 
         <div class="card border-0 shadow-sm mb-5">
@@ -428,6 +427,12 @@ $categoria = $_SESSION['categoria'];
         </div>
 
       <div class="col-lg-6 h-25" style="height: 75%;">
+        <div class="card border-0 shadow-sm mb-5">
+          <div class="card-header bg-white border-0 pt-3">
+            <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt-fill"></i> Mapa por municipio</h6>
+            </div>
+            <div class="card-body">
+
         <div class="container contenedorGeneral" id="">
       <svg id="mapa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 3995.94 5067.46">
           
@@ -551,6 +556,8 @@ $categoria = $_SESSION['categoria'];
           
         
       </svg>
+  </div>
+  </div>
   </div>
   </div>
         
