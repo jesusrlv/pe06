@@ -1,5 +1,6 @@
 // Variable para almacenar los datos
 let datosDashboard = {};
+let coloresTabla = {};
 
 // Obtener datos del servidor
 $.ajax({
@@ -59,9 +60,10 @@ let maxTotal = Math.max(...data.municipios.map(n => parseInt(n.total)));
 
 data.municipios.forEach((n, i) => {
     var elemento = document.querySelector('[data-name="' + n.municipio + '"]');
+    // var elemento2 = document.querySelector('[data-name="datosMunicipio_' + n.municipio + '"]');
     let num2 = parseInt(n.total);
     let percentil = (num2 / maxTotal) * 100;
-
+    
     if (elemento) {
         let fillColor, strokeColor;
         
@@ -69,29 +71,44 @@ data.municipios.forEach((n, i) => {
         if (percentil == 0) {
             fillColor = "#ffb3d1";
             strokeColor = "#99a8d9";
+            
         } else if (percentil <= 20) {
             fillColor = "#ff80b3";
             strokeColor = "#738cc9";
+            
         } else if (percentil <= 40) {
             fillColor = "#ff4d94";
             strokeColor = "#4d66b3";
+            
         } else if (percentil <= 60) {
             fillColor = "#ff1a75";
             strokeColor = "#4050a0";
+            
         } else if (percentil <= 80) {
             fillColor = "#e6005c";
             strokeColor = "#35408c";
+            
         } else {
             fillColor = "#10288c";
             strokeColor = "#ff4885";
+            
         }
         
         elemento.style.fill = fillColor;
         elemento.style.stroke = strokeColor;
+
+        // elemento2.style.backgroundColor = fillColor;
         
         console.log(`${n.municipio}: valor=${num2}, percentil=${percentil.toFixed(2)}%, color=${fillColor}`);
+        
+        coloresTabla[i] = {
+            municipio: n.municipio,
+            color: fillColor
+        };
     }
 });
+
+        // coloresTabla(coloresTabla);
 
         }
 
@@ -143,7 +160,7 @@ function cargarDatosEnDOM(datos) {
     // Tabla de municipios
     let municipiosHtml = '';
     datos.municipios.forEach((m, i) => {
-        municipiosHtml += `<tr><td class="fw-medium">${i+1}</td><td class="fw-medium">${m.municipio}</td><td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">${m.total.toLocaleString()}</span></td></tr>`;
+        municipiosHtml += `<tr data-municipio="datosMunicipio_${m.municipio}"><td class="fw-medium">${i+1}</td><td class="fw-medium">${m.municipio}</td><td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">${m.total.toLocaleString()}</span></td></tr>`;
     });
     document.getElementById('municipiosBody').innerHTML = municipiosHtml;
     
@@ -238,3 +255,14 @@ function aplicarPopovers(datos) {
         });
     });
 }
+
+// function coloresTabla(colores) {
+//     console.log('Colores para la tabla:', colores);
+
+//     colores.forEach(c => {
+//         var elemento2 = document.querySelector(`[data-municipio="datosMunicipio_${c.municipio}"]`);
+//         if (elemento2) {
+//             elemento2.style.backgroundColor = c.color;
+//         }
+//     });
+// }
