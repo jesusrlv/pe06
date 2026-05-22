@@ -95,6 +95,35 @@ $categoria = $_SESSION['categoria'];
           z-index: 1;
       }
 
+      /* popover */
+      /* CSS para personalizar el popover */
+      .mapa-popover-custom {
+          background-color: #10288c !important;
+          color: white !important;
+          border: 2px solid #cbe2fe !important;
+          border-radius: 10px !important;
+          font-family: Arial, sans-serif !important;
+      }
+
+      .mapa-popover-custom .popover-header {
+          background-color: #0a1a5c !important;
+          color: #cbe2fe !important;
+          border-bottom: 1px solid #cbe2fe !important;
+          font-weight: bold !important;
+          text-align: center !important;
+      }
+
+      .mapa-popover-custom .popover-body {
+          background-color: #10288c !important;
+          color: white !important;
+          text-align: center !important;
+          font-size: 14px !important;
+      }
+
+      .mapa-popover-custom .popover-arrow::after {
+          border-top-color: #10288c !important;
+      }
+
       body{
         font-family: 'Montserrat', sans-serif;
       }

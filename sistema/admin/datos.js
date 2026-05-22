@@ -241,7 +241,8 @@ function aplicarPopovers(datos) {
             html: true,
             title: nombreMunicipio,
             content: `Total: ${total.toLocaleString()} participantes`,
-            customClass: 'mapa-popover'
+            customClass: 'mapa-popover',
+            customClass: 'mapa-popover-custom'  // Clase personalizada
         });
     });
 }
