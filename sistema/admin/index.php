@@ -462,47 +462,47 @@ $categoria = $_SESSION['categoria'];
             </div>
             <div class="card-body">
               <div class="leyenda-rangos" style="
-    background: white;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-top: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-">
-    <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">📊 Participantes por municipio</div>
-    
-    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #ffb3d1; border-radius: 3px;"></div>
-            <span>Muy bajo</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #ff80b3; border-radius: 3px;"></div>
-            <span>Bajo</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #ff4d94; border-radius: 3px;"></div>
-            <span>Medio bajo</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #ff1a75; border-radius: 3px;"></div>
-            <span>Medio</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #e6005c; border-radius: 3px;"></div>
-            <span>Medio alto</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #cc004d; border-radius: 3px;"></div>
-            <span>Alto</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 5px;">
-            <div style="width: 20px; height: 20px; background: #10288c; border-radius: 3px;"></div>
-            <span>Muy alto</span>
-        </div>
-    </div>
-</div>
+                  background: white;
+                  border-radius: 8px;
+                  padding: 10px 15px;
+                  margin-top: 15px;
+                  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                  font-family: Arial, sans-serif;
+                  font-size: 12px;
+              ">
+                  <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">📊 Participantes por municipio</div>
+                  
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #ffb3d1; border-radius: 3px;"></div>
+                          <span>Muy bajo</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #ff80b3; border-radius: 3px;"></div>
+                          <span>Bajo</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #ff4d94; border-radius: 3px;"></div>
+                          <span>Medio bajo</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #ff1a75; border-radius: 3px;"></div>
+                          <span>Medio</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #e6005c; border-radius: 3px;"></div>
+                          <span>Medio alto</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #cc004d; border-radius: 3px;"></div>
+                          <span>Alto</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                          <div style="width: 20px; height: 20px; background: #10288c; border-radius: 3px;"></div>
+                          <span>Muy alto</span>
+                      </div>
+                  </div>
+              </div>
 
 
         <div class="container contenedorGeneral" id="" style="height: 100%;">
