@@ -71,8 +71,8 @@ $categoria = $_SESSION['categoria'];
 
       .container path {
          
-          fill: #c9d1f3;
-          stroke: #ffffff;
+          fill: #dadff5;
+          stroke: #fffefe;
           stroke-width: 12px;
           transition: all 1s;
           transform-origin: 50% 50%;
@@ -461,6 +461,49 @@ $categoria = $_SESSION['categoria'];
             <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt-fill"></i> Mapa por municipio</h6>
             </div>
             <div class="card-body">
+              <div class="leyenda-rangos" style="
+    background: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+">
+    <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">📊 Participantes por municipio</div>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #ffb3d1; border-radius: 3px;"></div>
+            <span>Muy bajo</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #ff80b3; border-radius: 3px;"></div>
+            <span>Bajo</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #ff4d94; border-radius: 3px;"></div>
+            <span>Medio bajo</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #ff1a75; border-radius: 3px;"></div>
+            <span>Medio</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #e6005c; border-radius: 3px;"></div>
+            <span>Medio alto</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #cc004d; border-radius: 3px;"></div>
+            <span>Alto</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 20px; height: 20px; background: #10288c; border-radius: 3px;"></div>
+            <span>Muy alto</span>
+        </div>
+    </div>
+</div>
+
 
         <div class="container contenedorGeneral" id="" style="height: 100%;">
 
@@ -535,7 +578,7 @@ $categoria = $_SESSION['categoria'];
 
           <path id="luisMoya" data-name="Luis Moya" class="cls-1" d="M2456.7,3267.1l5.3,52.6-19.3,23.7,4.9,27.8,115.3,13.2,8.6,22.4-37.5,10-20,20.4-6,22.8-15.2,14.9-13.6.1-27-30.2-52.3-16.9-1.5-29.9-43.5-33-10.2-52.7-12.7,2-3.6-53.7,13.6-11.3,40.6,1.7,20.4-20.1,15.3,25.9,38.4,10.3Z"/>
 
-          <path id="ciudadCuauhtemoc" data-name="Ciudad Cuauhtémoc" class="cls-1" d="M2057.1,3418.4l36.7-71.6,50.7-31.6,28.7,31.8,46.2-2.2-6.8-27.4,15.7-20.4-1.5-32-19.8-19,30.7-11.6,7.2-70.1,96.6,40.4.6,44.7-13.6,11.3,3.6,53.7-35.1,9,31.8,62.3-76.7,21.2-1.7,13.3-12.1,8.7-36.2-7.1-8.1,22.7-34.4,2.6-28.7,22.5-13.7-10.8,4.6-22.4-19.6-15-14.7,18Z"/>
+          <path id="ciudadCuauhtemoc" data-name="Cuauhtémoc" class="cls-1" d="M2057.1,3418.4l36.7-71.6,50.7-31.6,28.7,31.8,46.2-2.2-6.8-27.4,15.7-20.4-1.5-32-19.8-19,30.7-11.6,7.2-70.1,96.6,40.4.6,44.7-13.6,11.3,3.6,53.7-35.1,9,31.8,62.3-76.7,21.2-1.7,13.3-12.1,8.7-36.2-7.1-8.1,22.7-34.4,2.6-28.7,22.5-13.7-10.8,4.6-22.4-19.6-15-14.7,18Z"/>
 
           <path id="ojocaliente" data-name="Ojocaliente" class="cls-1" d="M2334,2974.1l82.1-23.2,11.8,8.6,25.1-8.4,43.4,31.4-16.4,19,14.4,15-33.5,42.3,8.6,12.5-17.6,30.3,18.9,12.4-2.2,15.6,52.2,52.4,4.3,32.6,49.9.7,2.2-22.1,60.2,25.6-2.6,37.5-38,.1,2,28.1,27.4,24.9-3.1,41.7-51.8,55.7-8.6-22.4-115.3-13.2-4.9-27.8,19.3-23.7-5.3-52.6-38.4-10.3-15.3-25.9-20.4,20.1-40.6-1.7-.6-44.7-96.6-40.4-64.2-21.1,24.7-70.7,30.9-7.6,11.5-30.1,36.3-21.2,10.6,14.1,17.6-6.1-13.6-23.7,28.7,5.2,6.9-28.9Z"/>
           
@@ -559,19 +602,19 @@ $categoria = $_SESSION['categoria'];
 
           <path id="atolinga" data-name="Atolinga" class="cls-1" d="M1119.7,4156.6l-53.1,20.2,12.8,39.1L970.9,4332.8l-13.8-1.6,18.9-24.8,23.1-82.3-80.3-38.8-5.3-31.6,25-7.2-10.4-18.9,34.8-17.9L1003,4135l59.8-110.8,18.5,6.6,20.8,12.3,4.2,21.2,68,15.9,12.9,28.3-17.9,33.9-46.4-12.4-3.2,26.6Z"/>
 
-          <path id="tlaltenango" data-name="Tlaltenango" class="cls-1" d="M1439.6,4071.9l9.3,109.2,10.4,47.9-41.1,42.5,10.8,13.9-24.8,65-50.4-.7-63-48.9-27.2,8.6-86.8-53.1-123-12.9,25.7-27.6-12.8-39.1,53.1-20.2,3.1-26.6,46.4,12.4,17.9-33.9-12.9-28.3-68-15.9-4.2-21.2,37.7-9.9,39.1,9.8,33.3-6.6,19.5-35.8,80.2,19.1,19.4-32.9,39.3-16.1-1.9,60.4,70.9,40.9Z"/>
+          <path id="tlaltenango" data-name="Tlaltenango de Sánchez Román" class="cls-1" d="M1439.6,4071.9l9.3,109.2,10.4,47.9-41.1,42.5,10.8,13.9-24.8,65-50.4-.7-63-48.9-27.2,8.6-86.8-53.1-123-12.9,25.7-27.6-12.8-39.1,53.1-20.2,3.1-26.6,46.4,12.4,17.9-33.9-12.9-28.3-68-15.9-4.2-21.2,37.7-9.9,39.1,9.8,33.3-6.6,19.5-35.8,80.2,19.1,19.4-32.9,39.3-16.1-1.9,60.4,70.9,40.9Z"/>
 
           <path id="tepechitlan" data-name="Tepechitlán" class="cls-1" d="M1290.8,4300.9l63,48.9-54.5,50.3,21.4,26.4-31.3,68.6-108.9-1.6-.6-20.3-51.5-61.4-24.6,37.7-28.8-12.3L997.8,4455l-39.3-6.7-14-29.8,12.7-87.4,13.8,1.6,82.8-89.3,123,12.9,86.8,53.1,27.2-8.5Z"/>
 
           <path id="jalpa" data-name="Jalpa" class="cls-1" d="M1448.8,4181.2l30.5,2.5,20.9,30.2,76.4,10.1,27,21.3,117.8-15.6,39,57,26.4,6.5-32.3,71.5-37-5.2-40.3,62.9.4,39-66.2,36.9-16.6,39.4-20.1-23-62.8-7.6-24.3-23-56.2-17.2-20,22.6-48.1-25.8-4.3-18.6-38.6-18.6-21.4-26.4,54.5-50.3,50.4.7,24.8-65-10.8-13.9,41.1-42.5-10.2-47.9Z"/>
 
-          <path id="nochistlan" data-name="Nochistlán" class="cls-1" d="M1717.6,4359.4l37,5.2,32.3-71.5,26.2,11.5-11.8,28.5,16.5,6.3-.3,31.5,60,31.5-43.9,37.3,12.9,35.2-25,26.8,1.6,55.3,58.4,15.3,19.9,37-22.2,25.8-14,46.7-28,15.8-.9,33.4-64,15.2-3,37.6-31.1-4.4-26,18.1-5.7,24.4-25.8-2.4-13.1,43.9L1564.2,4811l-36.8,6.5-14.6-18.8-3.4-36.4,67.6-91.2,37.6-44.4-23.7-31.6,19.3-37.5-15.1-20.1,16.6-39.4,66.2-36.9-.4-39,40.1-62.8Z"/>
+          <path id="nochistlan" data-name="Nochistlán de Mejía" class="cls-1" d="M1717.6,4359.4l37,5.2,32.3-71.5,26.2,11.5-11.8,28.5,16.5,6.3-.3,31.5,60,31.5-43.9,37.3,12.9,35.2-25,26.8,1.6,55.3,58.4,15.3,19.9,37-22.2,25.8-14,46.7-28,15.8-.9,33.4-64,15.2-3,37.6-31.1-4.4-26,18.1-5.7,24.4-25.8-2.4-13.1,43.9L1564.2,4811l-36.8,6.5-14.6-18.8-3.4-36.4,67.6-91.2,37.6-44.4-23.7-31.6,19.3-37.5-15.1-20.1,16.6-39.4,66.2-36.9-.4-39,40.1-62.8Z"/>
       
           <path id="apulco" data-name="Apulco" class="cls-1" d="M1967.6,4457.4l12,32.3-27.4,126.4,17.5,22.1-27.9,61.6-36.3-.1-26.3-64.7,22.2-25.8-19.9-37-58.4-15.3-1.6-55.3,25-26.8-12.9-35.2,43.9-37.3,31.9,2.3-7.5,36.8,65.7,16Z"/>
 
           <path id="apozol" data-name="Apozol" class="cls-1" d="M1411.6,4489.4l20-22.6,56.2,17.2,24.3,23,62.8,7.6,20.1,23,15.1,20.1-19.3,37.5,23.7,31.6-37.6,44.4-17-18,4.1-22.3-43.5-26.6-68.8.1-63.7-35-44.5-16.8-6.8,35.4-44.7-6.6,14.8-38.5-17.4-47.6,31.3-68.6,38.6,18.6,4.3,18.6,48,25.5Z"/>
 
-          <path id="juchipila" data-name="Juchiplia" class="cls-1" d="M1520.5,4604.3l43.5,26.6-4.1,22.3,17,18-67.6,91.2-113.6-45.1-121.2,2.8-25.5-12.3,5.8-72,36.6-22.2.6-32.2,44.7,6.6,6.8-35.4,44.5,16.8,63.7,35,68.8-.1Z"/>
+          <path id="juchipila" data-name="Juchipila" class="cls-1" d="M1520.5,4604.3l43.5,26.6-4.1,22.3,17,18-67.6,91.2-113.6-45.1-121.2,2.8-25.5-12.3,5.8-72,36.6-22.2.6-32.2,44.7,6.6,6.8-35.4,44.5,16.8,63.7,35,68.8-.1Z"/>
 
           <path id="moyahua" data-name="Moyahua" class="cls-1" d="M1512.7,4798.8l-45.1,85,18,50.9-39.1,27.8,6.2,14.8,73.5,9.9-47.1,38-16.3,30.3-112.1-21.3-2.7-17.1-79.4,7.4,10.3-41-53.7-28.3-10.3-68.8,81.1-38.7-51.8-62.4,1.1-26.3,37.3-15.4-8.3-23.5,121.2-2.8,113.6,45.1,3.6,36.4Z"/>
 
@@ -589,6 +632,7 @@ $categoria = $_SESSION['categoria'];
       </svg>
   </div>
   </div>
+  
   </div>
   </div>
         

@@ -53,54 +53,58 @@ $.ajax({
                 console.log('Total de participantes por municipio:', variable);
             
             // porcentaje por municipio
-            data.municipios.forEach((n, i) => {
-                var elemento = document.querySelector('[data-name="' + n.municipio + '"]');
-                console.log(`Municipio ${i}:`, n);
-                num2 = parseInt(n.total);
-                variable2 = num2 / variable * 100;
-                console.log(`Porcentaje de ${n.municipio}:`, variable2.toFixed(2) + '%');
+        
+            // Calcular el valor máximo y ordenar para percentiles por posición
+let maxTotal = Math.max(...data.municipios.map(n => parseInt(n.total)));
+let municipiosOrdenados = [...data.municipios].sort((a, b) => parseInt(a.total) - parseInt(b.total));
+let totalMunicipios = municipiosOrdenados.length;
 
-                if (elemento) {
-                    // Calcular percentil (0-20% = más bajo, 80-100% = más alto)
-                    let percentil = (num2 / variable) * 100;
-                    
-                    // Definir colores según percentiles (de menor a mayor)
-                    let fillColor, strokeColor;
-                    
-                    
-                    if (percentil == 0) {
-                        fillColor = "#c70c51";      // Menor
-                        strokeColor = "#2244aa";
-                    } else if (percentil <= 20 && percentil > 0) {
-                        fillColor = "#cbe2fe";
-                        strokeColor = "#10288c";
-                    } else if (percentil <= 40 && percentil > 20) {
-                        fillColor = "#4b0090";
-                        strokeColor = "#a8b5e8";
-                    } else if (percentil <= 60 && percentil > 40) {
-                        fillColor = "#4466aa";
-                        strokeColor = "#7bb3d9";
-                    } else if (percentil <= 80 && percentil > 60) {
-                        fillColor = "#2244aa";
-                        strokeColor = "#f296b5";
-                    } else if (percentil <= 100 && percentil > 80) {
-                        fillColor = "#10288c";      // Mayor
-                        strokeColor = "#d1d4d7";
-                    }
-                    // else {
-                    //     // Percentil 80-100% (más alto)
-                    //     fillColor = "#99e7ff";
-                    //     strokeColor = "#004f67";
-                    // }
-                    
-                    elemento.style.fill = fillColor;
-                    elemento.style.stroke = strokeColor;
-                    
-                } else {
-                    console.error(`Elemento con ID "${n.municipio}" no encontrado en el DOM.`);
-                }
+data.municipios.forEach((n, i) => {
+    var elemento = document.querySelector('[data-name="' + n.municipio + '"]');
+    
+    let num2 = parseInt(n.total);
+    let percentil = (num2 / maxTotal) * 100;
+    
+    // Percentil por posición (0-100) para distribuir equitativamente
+    let posicion = municipiosOrdenados.findIndex(m => m.municipio === n.municipio);
+    let percentilPosicion = (posicion / (totalMunicipios - 1)) * 100;
 
-            });
+    if (elemento) {
+        let fillColor, strokeColor;
+        
+        // Colores con MAYOR INTENSIDAD (más vivos)
+        if (percentilPosicion <= 10) {
+            fillColor = "#ffb3d1";      // Rosado intenso
+            strokeColor = "#99a8d9";
+        } else if (percentilPosicion <= 25) {
+            fillColor = "#ff80b3";
+            strokeColor = "#738cc9";
+        } else if (percentilPosicion <= 40) {
+            fillColor = "#ff4d94";
+            strokeColor = "#4d66b3";
+        } else if (percentilPosicion <= 55) {
+            fillColor = "#ff1a75";
+            strokeColor = "#4050a0";
+        } else if (percentilPosicion <= 70) {
+            fillColor = "#e6005c";
+            strokeColor = "#35408c";
+        } else if (percentilPosicion <= 85) {
+            fillColor = "#cc004d";
+            strokeColor = "#2a3080";
+        } else {
+            fillColor = "#10288c";      // Azul oscuro (máximo)
+            strokeColor = "#ff4885";
+        }
+        
+        elemento.style.fill = fillColor;
+        elemento.style.stroke = strokeColor;
+        
+        console.log(`${n.municipio}: valor=${num2}, posición=${posicion+1}/${totalMunicipios}, color=${fillColor}`);
+    } else {
+        console.error(`Elemento con data-name "${n.municipio}" no encontrado.`);
+    }
+});
+
         }
 
         
